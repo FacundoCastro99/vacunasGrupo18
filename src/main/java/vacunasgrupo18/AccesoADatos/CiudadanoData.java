@@ -45,10 +45,42 @@ public class CiudadanoData {
             
         } catch (SQLException ex) {
             
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumnos");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
             
         }
         
+        
+    }
+    
+    public void modificarCiudadano(Ciudadano ciuda){
+        
+        String sql = "UPDATE ciudadano SET nombreCompleto = ?, email = ?, celular = ?, patologia = ?, ambitoTrabajo = ?"
+                + "WHERE DNI = ?";
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, ciuda.getNombreCompleto());
+            ps.setString(2, ciuda.getEmail());
+            ps.setString(3, ciuda.getCelular());
+            ps.setString(4, ciuda.getPatologia());
+            ps.setString(5, ciuda.getAmbitoTrabajo());
+            ps.setInt(6, ciuda.getDni());
+            int exito = ps.executeUpdate();
+            
+            if(exito == 1){
+                
+                JOptionPane.showMessageDialog(null, "Ciudadano modificado");
+                
+                
+            }
+           
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
         
     }
     
