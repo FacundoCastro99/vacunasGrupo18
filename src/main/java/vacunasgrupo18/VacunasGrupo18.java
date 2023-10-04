@@ -3,7 +3,9 @@
 package vacunasgrupo18;
 
 import vacunasgrupo18.AccesoADatos.CiudadanoData;
+import vacunasgrupo18.AccesoADatos.LaboratorioData;
 import vacunasgrupo18.Entidades.Ciudadano;
+import vacunasgrupo18.Entidades.Laboratorio;
 
 
 public class VacunasGrupo18 {
@@ -14,12 +16,13 @@ public class VacunasGrupo18 {
         
         CiudadanoData persona = new CiudadanoData();
         
-        //persona.guardarCiudadano(pedro);
-        persona.modificarCiudadano(pedro);
+//        persona.guardarCiudadano(pedro);
+//        persona.modificarCiudadano(pedro);
         
+        Laboratorio lab = new Laboratorio(20124578,"Pfizer","Alemania","Calle falsa 123");
+        LaboratorioData labMet = new LaboratorioData();
         
-        
-        
+        labMet.guardarLaboratorio(lab);
     }
     
 }
