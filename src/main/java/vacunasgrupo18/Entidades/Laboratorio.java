@@ -5,19 +5,23 @@ package vacunasgrupo18.Entidades;
 public class Laboratorio {
     
     private int cuit;
-    private String domComercial;
     private String nomLaboratorio;
     private String pais;
+    private String domComercial;
+    
+    
 
     public Laboratorio() {
     }
 
-    public Laboratorio(int cuit, String domComercial, String nomLaboratorio, String pais) {
+    public Laboratorio(int cuit, String nomLaboratorio, String pais, String domComercial) {
         this.cuit = cuit;
-        this.domComercial = domComercial;
         this.nomLaboratorio = nomLaboratorio;
         this.pais = pais;
+        this.domComercial = domComercial;
     }
+
+    
 
     public int getCuit() {
         return cuit;
