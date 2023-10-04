@@ -38,7 +38,7 @@ public class CiudadanoData {
             ps.executeUpdate();
 
                             
-            JOptionPane.showMessageDialog(null, "Ciudadno guardado");
+            JOptionPane.showMessageDialog(null, "Ciudadano guardado");
                 
                 
             ps.close();
@@ -84,5 +84,5 @@ public class CiudadanoData {
         
     }
     
-    
+        
 }

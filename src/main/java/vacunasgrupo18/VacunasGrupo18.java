@@ -10,7 +10,7 @@ public class VacunasGrupo18 {
 
     public static void main(String[] args) {
         
-        Ciudadano pedro = new Ciudadano(42547958, "Pedro", "pedro123@gmail.com", "2984145677", "diabetes", "Salud");
+        Ciudadano pedro = new Ciudadano(42547958, "Pedro Sanchez", "pedro123@gmail.com", "2984145677", "diabetes", "Salud");
         
         CiudadanoData persona = new CiudadanoData();
         
