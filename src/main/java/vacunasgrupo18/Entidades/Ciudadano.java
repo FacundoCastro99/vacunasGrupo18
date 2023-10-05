@@ -23,6 +23,14 @@ public class Ciudadano {
         this.ambitoTrabajo = ambitoTrabajo;
     }
 
+    public Ciudadano(int dni, String nombreCompleto, String email, String celular, String ambitoTrabajo) {
+        this.dni = dni;
+        this.nombreCompleto = nombreCompleto;
+        this.email = email;
+        this.celular = celular;
+        this.ambitoTrabajo = ambitoTrabajo;
+    }
+
    
 
     

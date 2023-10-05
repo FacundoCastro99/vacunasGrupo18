@@ -15,6 +15,7 @@ public class LaboratoriosYVacunas extends javax.swing.JInternalFrame {
      */
     public LaboratoriosYVacunas() {
         initComponents();
+        setBounds(135, 40, 450, 355);
     }
 
     /**

@@ -4,17 +4,24 @@
  */
 package vacunasgrupo18.Vistas;
 
+
+import javax.swing.JOptionPane;
+import vacunasgrupo18.AccesoADatos.CiudadanoData;
+import vacunasgrupo18.Entidades.Ciudadano;
+
 /**
  *
  * @author lucia
  */
 public class RegistrarCiudadano extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form RegistrarCiudadano
-     */
+    CiudadanoData cData = new CiudadanoData();
+    Ciudadano cActual = null;
+            
     public RegistrarCiudadano() {
         initComponents();
+        setBounds(135, 5, 425, 425);
+
     }
 
     /**
@@ -26,25 +33,249 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jtnombre = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jtdni = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jtEmail = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jtCelular = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jctrabajo = new javax.swing.JComboBox<>();
+        jbRegistrar = new javax.swing.JButton();
+        jtEpatologia = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jrSi = new javax.swing.JRadioButton();
+        jrNo = new javax.swing.JRadioButton();
+
+        setBackground(new java.awt.Color(0, 204, 204));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setTitle("Registo del Ciudadano");
+
+        jLabel1.setText("Nombre Completo:");
+
+        jLabel2.setText("DNI:");
+
+        jLabel3.setText("Email:");
+
+        jLabel4.setText("Celular:");
+
+        jLabel5.setText("Patología:");
+
+        jLabel6.setText("Ambito de Trabajo:");
+
+        jctrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Salud", "Educación", "Fuerzas Armadas", "Otros" }));
+
+        jbRegistrar.setText("Registrar");
+        jbRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRegistrarActionPerformed(evt);
+            }
+        });
+
+        jtEpatologia.setEnabled(false);
+
+        jLabel7.setText("Especifique Patologia:");
+
+        jrSi.setText("Si");
+        jrSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrSiActionPerformed(evt);
+            }
+        });
+
+        jrNo.setText("No");
+        jrNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrNoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbRegistrar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel7))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jtdni, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtnombre)
+                                        .addComponent(jtEmail)
+                                        .addComponent(jtCelular)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(16, 16, 16)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jrSi)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jrNo))
+                                        .addComponent(jtEpatologia, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jctrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jtdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jrSi)
+                    .addComponent(jrNo))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtEpatologia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jctrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(jbRegistrar)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
+        
+        try{
+            
+            Integer dni = Integer.parseInt(jtdni.getText());
+            String nombre = jtnombre.getText();
+            String email = jtEmail.getText();
+            String celular = jtCelular.getText();
+            String trabajo = jctrabajo.getSelectedItem().toString();
+            String Patologia = jtEpatologia.getText();
+
+        
+        if(nombre.isEmpty() || celular.isEmpty() ){
+            
+            JOptionPane.showMessageDialog(this, "Complete los campos obligatorios");
+            return;
+   
+        }
+        
+         if(jrSi.isSelected() && Patologia.isEmpty()){
+                
+                JOptionPane.showMessageDialog(this, "Especifique la patología");
+                return;
+                
+            } 
+        
+        
+        if(cActual==null && jrSi.isSelected()){
+            
+            cActual = new Ciudadano(dni, nombre, email, celular, Patologia, trabajo);
+            cData.guardarCiudadano(cActual);
+            
+        }else {
+            
+            cActual.setDni(dni);
+            cActual.setNombreCompleto(nombre);
+            cActual.setEmail(email);
+            cActual.setCelular(celular);
+            cActual.setPatologia(Patologia);
+            cActual.setAmbitoTrabajo(trabajo);
+            cData.modificarCiudadano(cActual);
+            
+        }
+        
+        if(cActual==null && jrNo.isSelected()){
+            
+            cActual = new Ciudadano(dni, nombre, email, celular, "",  trabajo);
+            cData.guardarCiudadano(cActual);
+            
+        }else {
+            
+            cActual.setDni(dni);
+            cActual.setNombreCompleto(nombre);
+            cActual.setEmail(email);
+            cActual.setCelular(celular);
+            cActual.setPatologia(Patologia);
+            cActual.setAmbitoTrabajo(trabajo);
+            cData.modificarCiudadano(cActual);
+            
+        }
+        
+        
+
+        }catch(NumberFormatException ex){
+            
+            JOptionPane.showMessageDialog(this, "Debe ingresar un dni valido");
+            
+        }
+    }//GEN-LAST:event_jbRegistrarActionPerformed
+
+    private void jrSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrSiActionPerformed
+        
+        jtEpatologia.setEnabled(true);
+        jrNo.setSelected(false);
+        
+    }//GEN-LAST:event_jrSiActionPerformed
+
+    private void jrNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrNoActionPerformed
+        
+        jtEpatologia.setText("");
+        jtEpatologia.setEnabled(false);
+        jrSi.setSelected(false);
+        
+    }//GEN-LAST:event_jrNoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JButton jbRegistrar;
+    private javax.swing.JComboBox<String> jctrabajo;
+    private javax.swing.JRadioButton jrNo;
+    private javax.swing.JRadioButton jrSi;
+    private javax.swing.JTextField jtCelular;
+    private javax.swing.JTextField jtEmail;
+    private javax.swing.JTextField jtEpatologia;
+    private javax.swing.JTextField jtdni;
+    private javax.swing.JTextField jtnombre;
     // End of variables declaration//GEN-END:variables
 }

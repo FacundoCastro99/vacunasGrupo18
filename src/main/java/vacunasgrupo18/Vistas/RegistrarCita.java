@@ -15,6 +15,7 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
      */
     public RegistrarCita() {
         initComponents();
+        setBounds(135, 40, 450, 355);
     }
 
     /**
