@@ -52,13 +52,13 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 204, 204));
+        setBackground(new java.awt.Color(255, 0, 0));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Registo del Ciudadano");
 
-        jLabel1.setText("Nombre Completo:");
+        jLabel1.setText("Nombre y Apellido:");
 
         jLabel2.setText("DNI:");
 
@@ -105,6 +105,11 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
         });
 
         jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,7 +212,7 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
             String PatologiaNo = "Ninguna";
 
         
-        if(nombre.isEmpty() || celular.isEmpty() ){
+        if(nombre.isEmpty()){
             
             JOptionPane.showMessageDialog(this, "Complete los campos obligatorios");
             return;
@@ -287,6 +292,40 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
         cActual = null;
         
     }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        
+        Integer dni = Integer.parseInt(jtdni.getText());
+        
+        cActual = cData.buscarCiudadanoPorDni(dni);
+        
+        String patologia = null;
+        
+        if(cActual != null){
+            
+            jtnombre.setText(cActual.getNombreCompleto());
+            jtEmail.setText(cActual.getEmail());
+            jtCelular.setText(cActual.getCelular());
+            jctrabajo.setSelectedItem(cActual.getAmbitoTrabajo());
+
+            patologia = cActual.getPatologia();
+            
+            if(patologia.equals("Ninguna")){
+                
+                  jrNo.setSelected(true);
+                
+            } else{
+                
+                jrSi.setSelected(true);
+                
+                 jtEpatologia.setText(cActual.getPatologia());
+                
+            }
+            
+            
+        }
+        
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
