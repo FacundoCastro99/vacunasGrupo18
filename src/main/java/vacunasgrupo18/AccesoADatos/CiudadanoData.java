@@ -84,5 +84,48 @@ public class CiudadanoData {
         
     }
     
+    
+    public Ciudadano buscarCiudadanoPorDni(int dni){
+        
+        String sql = "SELECT DNI, nombreCompleto, email, celular, patologia, ambitoTrabajo FROM ciudadano WHERE dni = ?";
+        
+        Ciudadano ciuda = null;
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                
+                ciuda = new Ciudadano();
+                ciuda.setDni(rs.getInt("dni"));
+                ciuda.setNombreCompleto(rs.getString("nombreCompleto"));
+                ciuda.setEmail(rs.getString("email"));
+                ciuda.setCelular(rs.getString("celular"));
+                ciuda.setPatologia(rs.getString("patologia"));
+                ciuda.setAmbitoTrabajo(rs.getString("ambitoTrabajo"));
+                
+                
+            }else{
+                
+                JOptionPane.showMessageDialog(null, "No se ha encontrado al ciudadano");
+                
+                
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+        return ciuda;
+                  
+    }
+    
         
 }
