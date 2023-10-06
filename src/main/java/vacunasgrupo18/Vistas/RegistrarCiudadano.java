@@ -5,6 +5,7 @@
 package vacunasgrupo18.Vistas;
 
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import vacunasgrupo18.AccesoADatos.CiudadanoData;
 import vacunasgrupo18.Entidades.Ciudadano;
@@ -21,7 +22,7 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
     public RegistrarCiudadano() {
         initComponents();
         setBounds(135, 5, 425, 425);
-
+        this.getContentPane().setBackground(new Color(0, 153, 255));
     }
 
     /**
