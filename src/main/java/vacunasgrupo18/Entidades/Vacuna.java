@@ -2,6 +2,7 @@
 package vacunasgrupo18.Entidades;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 
 public class Vacuna {
@@ -9,19 +10,19 @@ public class Vacuna {
     private int nroSerieDosis;
    private String marca;
    private double medida;
-   private Date fechaCaduca;
+   private LocalDate fechaCaduca;
    private boolean colocada=false;
 
     public Vacuna() {
     }
 
-    public Vacuna(String marca, double medida, Date fechaCaduca) {
+    public Vacuna(String marca, double medida, LocalDate fechaCaduca) {
         this.marca = marca;
         this.medida = medida;
         this.fechaCaduca = fechaCaduca;
     }
 
-    public Vacuna(int nroSerieDosis, String marca, double medida, Date fechaCaduca) {
+    public Vacuna(int nroSerieDosis, String marca, double medida, LocalDate fechaCaduca) {
         this.nroSerieDosis = nroSerieDosis;
         this.marca = marca;
         this.medida = medida;
@@ -53,11 +54,11 @@ public class Vacuna {
         this.medida = medida;
     }
 
-    public Date getFechaCaduca() {
+    public LocalDate getFechaCaduca() {
         return fechaCaduca;
     }
 
-    public void setFechaCaduca(Date fechaCaduca) {
+    public void setFechaCaduca(LocalDate fechaCaduca) {
         this.fechaCaduca = fechaCaduca;
     }
 

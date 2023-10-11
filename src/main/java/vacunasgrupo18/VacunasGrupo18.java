@@ -12,17 +12,26 @@ public class VacunasGrupo18 {
 
     public static void main(String[] args) {
         
-        Ciudadano pedro = new Ciudadano(42547958, "Pedro Sanchez", "pedro123@gmail.com", "2984145677", "diabetes", "Salud");
+        //Ciudadano pedro = new Ciudadano(42547958, "Pedro Sanchez", "pedro123@gmail.com", "2984145677", "diabetes", "Salud");
         
-        CiudadanoData persona = new CiudadanoData();
+        //CiudadanoData persona = new CiudadanoData();
         
 //        persona.guardarCiudadano(pedro);
 //        persona.modificarCiudadano(pedro);
         
-        Laboratorio lab = new Laboratorio(20124578,"Pfizer","Alemania","Calle falsa 123");
+        //Laboratorio lab = new Laboratorio(20124578,"Pfizer","Inglaterra","Calle falsa 1234");
         LaboratorioData labMet = new LaboratorioData();
         
-        labMet.guardarLaboratorio(lab);
-    }
-    
+        //labMet.guardarLaboratorio(lab);
+        //labMet.modificarLaboratorio(lab);
+        
+        Laboratorio labEncontrado = labMet.buscarLaboratorioPorCuit(20124578);
+        
+        if(labEncontrado!=null){
+            
+            System.out.println("Cuit " + labEncontrado.getCuit());
+            System.out.println("nombre del laboratorio " + labEncontrado.getNomLaboratorio());
+        }
+         
+}
 }
