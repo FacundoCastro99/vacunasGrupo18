@@ -50,8 +50,34 @@ public class VacunaData {
         
     }
    
-     
-     
-     
+     public void modificarVacuna(Vacuna vacun) throws SQLException{
+        
+        String sql = "UPDATE vacuna SET nroSerieDosis = ?, marca = ?, medida = ?, fechaCaduca = ?, colocada = ?"
+                + "WHERE 1 = ?";
+                
+               
+      try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, vacun.getNroSerieDosis());
+            ps.setString(2, vacun.getMarca());
+            ps.setDouble(3, vacun.getMedida());
+            ps.setDate(4, Date.valueOf(vacun.getFechaCaduca()));
+            ps.setBoolean(5, vacun.isColocada());
+      int exito = ps.executeUpdate();
+      if(exito == 1){
+                
+                JOptionPane.showMessageDialog(null, "Vacuna modificada");
+                    
+            }
+           
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
      }
+
+}
     
