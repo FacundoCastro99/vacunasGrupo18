@@ -11,24 +11,27 @@ public class Vacuna {
    private String marca;
    private double medida;
    private LocalDate fechaCaduca;
-   private boolean colocada=false;
+   private boolean colocada;
 
     public Vacuna() {
     }
 
-    public Vacuna(String marca, double medida, LocalDate fechaCaduca) {
+    public Vacuna(String marca, double medida, LocalDate fechaCaduca,boolean colocada) {
         this.marca = marca;
         this.medida = medida;
         this.fechaCaduca = fechaCaduca;
+        this.colocada = colocada;
     }
 
-    public Vacuna(int nroSerieDosis, String marca, double medida, LocalDate fechaCaduca) {
+   
+
+    public Vacuna(int nroSerieDosis, String marca, double medida, LocalDate fechaCaduca,boolean colocada) {
         this.nroSerieDosis = nroSerieDosis;
         this.marca = marca;
         this.medida = medida;
         this.fechaCaduca = fechaCaduca;
+        this.colocada = colocada;
     }
-    
 
     public int getNroSerieDosis() {
         return nroSerieDosis;

@@ -2,10 +2,13 @@
 
 package vacunasgrupo18;
 
+import java.time.LocalDate;
 import vacunasgrupo18.AccesoADatos.CiudadanoData;
 import vacunasgrupo18.AccesoADatos.LaboratorioData;
+import vacunasgrupo18.AccesoADatos.VacunaData;
 import vacunasgrupo18.Entidades.Ciudadano;
 import vacunasgrupo18.Entidades.Laboratorio;
+import vacunasgrupo18.Entidades.Vacuna;
 
 
 public class VacunasGrupo18 {
@@ -20,18 +23,21 @@ public class VacunasGrupo18 {
 //        persona.modificarCiudadano(pedro);
         
         //Laboratorio lab = new Laboratorio(20124578,"Pfizer","Inglaterra","Calle falsa 1234");
-        LaboratorioData labMet = new LaboratorioData();
+       //  LaboratorioData labMet = new LaboratorioData();
         
         //labMet.guardarLaboratorio(lab);
         //labMet.modificarLaboratorio(lab);
         
-        Laboratorio labEncontrado = labMet.buscarLaboratorioPorCuit(20124578);
+      //   Laboratorio labEncontrado = labMet.buscarLaboratorioPorCuit(20124578);
         
-        if(labEncontrado!=null){
+       //  if(labEncontrado!=null){
             
-            System.out.println("Cuit " + labEncontrado.getCuit());
-            System.out.println("nombre del laboratorio " + labEncontrado.getNomLaboratorio());
-        }
+      //       System.out.println("Cuit " + labEncontrado.getCuit());
+       //      System.out.println("nombre del laboratorio " + labEncontrado.getNomLaboratorio());
+      //   }
+         Vacuna vacu=new Vacuna(123123123, "Moderna" , 0.3 , LocalDate.of(2024,12,23),true);
+         VacunaData vacunD=new VacunaData();
          
+         vacunD.guardarVacuna(vacu);
 }
 }

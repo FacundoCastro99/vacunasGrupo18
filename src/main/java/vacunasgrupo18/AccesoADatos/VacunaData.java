@@ -21,8 +21,8 @@ public class VacunaData {
 }
      public void guardarVacuna(Vacuna vacu){
         
-        String sql = "INSERT INTO vacuna (nroSerieDosis, marca, medida,	fechaCaduca, colocada)"
-                + "VALUES(?, ?, ?, ?,?)";
+        String sql = "INSERT INTO vacuna (`nroSerieDosis`, `marca`, `medida`, `fechaCaduca`, `colocada`)"
+                + "VALUES(?, ?, ?, ?, ?)";
         
          try {
             
