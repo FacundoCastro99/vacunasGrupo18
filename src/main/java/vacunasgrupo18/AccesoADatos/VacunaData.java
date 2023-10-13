@@ -28,7 +28,7 @@ public class VacunaData {
             
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, vacu.getNroSerieDosis());
-            ps.setString(2, vacu.getMarca());
+            ps.setString(2, vacu.getLabMarca().getNomLaboratorio());
             ps.setDouble(3, vacu.getMedida());
             ps.setDate(4, Date.valueOf(vacu.getFechaCaduca()));
             ps.setBoolean(5, vacu.isColocada());
@@ -60,7 +60,7 @@ public class VacunaData {
             
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, vacun.getNroSerieDosis());
-            ps.setString(2, vacun.getMarca());
+            ps.setString(2, vacun.getLabMarca().getNomLaboratorio());
             ps.setDouble(3, vacun.getMedida());
             ps.setDate(4, Date.valueOf(vacun.getFechaCaduca()));
             ps.setBoolean(5, vacun.isColocada());

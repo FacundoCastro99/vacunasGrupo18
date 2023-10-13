@@ -8,29 +8,36 @@ import java.time.LocalDate;
 public class Vacuna {
     
     private int nroSerieDosis;
-   private String marca;
+    private Laboratorio labMarca;
    private double medida;
    private LocalDate fechaCaduca;
    private boolean colocada;
+   
 
     public Vacuna() {
     }
 
-    public Vacuna(String marca, double medida, LocalDate fechaCaduca,boolean colocada) {
-        this.marca = marca;
+    public Vacuna(Laboratorio labMarca, double medida, LocalDate fechaCaduca, boolean colocada) {
+        this.labMarca = labMarca;
         this.medida = medida;
         this.fechaCaduca = fechaCaduca;
         this.colocada = colocada;
     }
 
-   
-
-    public Vacuna(int nroSerieDosis, String marca, double medida, LocalDate fechaCaduca,boolean colocada) {
+    public Vacuna(int nroSerieDosis, Laboratorio labMarca, double medida, LocalDate fechaCaduca, boolean colocada) {
         this.nroSerieDosis = nroSerieDosis;
-        this.marca = marca;
+        this.labMarca = labMarca;
         this.medida = medida;
         this.fechaCaduca = fechaCaduca;
         this.colocada = colocada;
+    }
+
+    public Laboratorio getLabMarca() {
+        return labMarca;
+    }
+
+    public void setLabMarca(Laboratorio labMarca) {
+        this.labMarca = labMarca;
     }
 
     public int getNroSerieDosis() {
@@ -41,13 +48,6 @@ public class Vacuna {
         this.nroSerieDosis = nroSerieDosis;
     }
 
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
 
     public double getMedida() {
         return medida;
@@ -75,7 +75,7 @@ public class Vacuna {
 
     @Override
     public String toString() {
-        return "Vacuna{" + "nroSerieDosis=" + nroSerieDosis + ", marca=" + marca + ", medida=" + medida + ", fechaCaduca=" + fechaCaduca + ", colocada=" + colocada + '}';
+        return "Vacuna{" + "nroSerieDosis=" + nroSerieDosis + ", marca=" + labMarca + ", medida=" + medida + ", fechaCaduca=" + fechaCaduca + ", colocada=" + colocada + '}';
     }
     
 }
