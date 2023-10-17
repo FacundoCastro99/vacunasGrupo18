@@ -120,4 +120,44 @@ public class LaboratorioData {
                   
     }
     
+    public Laboratorio buscarLaboratorioPorNombre(String nombre){
+        
+        String sql = "SELECT CUIT, nomLaboratorio, pais, domComercial FROM laboratorio WHERE nomLaboratorio = ?";
+        
+        Laboratorio labo = null;
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                
+                labo = new Laboratorio();
+                labo.setCuit(rs.getInt("CUIT"));
+                labo.setNomLaboratorio(rs.getString("nomLaboratorio"));
+                labo.setPais(rs.getString("pais"));
+                labo.setDomComercial(rs.getString("domComercial"));
+                
+                
+            }else{
+                
+                JOptionPane.showMessageDialog(null, "No se ha encontrado el laboratorio");
+                
+                
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+        return labo;
+                  
+    }
+    
 }
