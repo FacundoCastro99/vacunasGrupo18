@@ -37,6 +37,7 @@ public class Menu extends javax.swing.JFrame {
         salir = new javax.swing.JButton();
         escritorio = new javax.swing.JDesktopPane();
         jLabel3 = new javax.swing.JLabel();
+        laboYVacu1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 400));
@@ -67,14 +68,13 @@ public class Menu extends javax.swing.JFrame {
         laboYVacu.setBackground(new java.awt.Color(0, 51, 204));
         laboYVacu.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         laboYVacu.setForeground(new java.awt.Color(255, 255, 255));
-        laboYVacu.setText("Laboratorios y Vacunas");
+        laboYVacu.setText("Agregar Laboratorio");
+        laboYVacu.setActionCommand("Agregar Laboratorios");
         laboYVacu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 laboYVacuActionPerformed(evt);
             }
         });
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Programación\\recursos\\vacunaImagen.jpg")); // NOI18N
 
         salir.setBackground(new java.awt.Color(0, 51, 204));
         salir.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -86,7 +86,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Programación\\recursos\\pandemiaImagen2.jpg")); // NOI18N
         jLabel3.setPreferredSize(new java.awt.Dimension(756, 473));
 
         escritorio.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -102,18 +101,31 @@ public class Menu extends javax.swing.JFrame {
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        laboYVacu1.setBackground(new java.awt.Color(0, 51, 204));
+        laboYVacu1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        laboYVacu1.setForeground(new java.awt.Color(255, 255, 255));
+        laboYVacu1.setText("Agregar Vacunas");
+        laboYVacu1.setActionCommand("Agregar Laboratorios");
+        laboYVacu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                laboYVacu1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(laboYVacu, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(registrarCita, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(registrarCiudadano, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(laboYVacu, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(registrarCita, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(registrarCiudadano, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(laboYVacu1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -130,6 +142,8 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(laboYVacu)
                 .addGap(18, 18, 18)
+                .addComponent(laboYVacu1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(salir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(escritorio)
@@ -139,7 +153,7 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +176,7 @@ public class Menu extends javax.swing.JFrame {
     private void laboYVacuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laboYVacuActionPerformed
         
         escritorio.repaint();
-        LaboratoriosYVacunas lab = new LaboratoriosYVacunas();
+        AgregarLaboratorio lab = new AgregarLaboratorio();
         lab.setVisible(true);
         escritorio.add(lab);
         escritorio.moveToFront(lab);
@@ -182,6 +196,14 @@ public class Menu extends javax.swing.JFrame {
         escritorio.moveToFront(cita);
         
     }//GEN-LAST:event_registrarCitaActionPerformed
+
+    private void laboYVacu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laboYVacu1ActionPerformed
+        escritorio.repaint();
+        AgregarVacunas AgreVac = new AgregarVacunas();
+        AgreVac.setVisible(true);
+        escritorio.add(AgreVac);
+        escritorio.moveToFront(AgreVac);
+    }//GEN-LAST:event_laboYVacu1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,6 +245,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton laboYVacu;
+    private javax.swing.JButton laboYVacu1;
     private java.awt.Panel panel2;
     private javax.swing.JButton registrarCita;
     private javax.swing.JButton registrarCiudadano;

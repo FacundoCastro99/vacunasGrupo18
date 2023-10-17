@@ -36,12 +36,12 @@ public class VacunasGrupo18 {
        //      System.out.println("nombre del laboratorio " + labEncontrado.getNomLaboratorio());
       //   }
       
-         LaboratorioData labData = new LaboratorioData();
-         Laboratorio lab = labData.buscarLaboratorioPorCuit(20124578);
-         VacunaData vacunD=new VacunaData();
+        // LaboratorioData labData = new LaboratorioData();
+        // Laboratorio lab = labData.buscarLaboratorioPorCuit(20124578);
+        // VacunaData vacunD=new VacunaData();
          
-         Vacuna vacu = new Vacuna(1234, lab, 0.3, LocalDate.of(2022, 12, 23), true);
+        // Vacuna vacu = new Vacuna(1234, lab, 0.3, LocalDate.of(2022, 12, 23), true);
          
-         vacunD.guardarVacuna(vacu);
+        // vacunD.guardarVacuna(vacu);
 }
 }
