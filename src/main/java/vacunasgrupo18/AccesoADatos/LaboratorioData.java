@@ -113,7 +113,7 @@ public class LaboratorioData {
         } catch (SQLException ex) {
             
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
-            
+           ex.getStackTrace();
         }
         
         return labo;

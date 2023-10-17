@@ -24,7 +24,7 @@ public class VacunaData {
 }
      public void guardarVacuna(Vacuna vacu){
         
-        String sql = "INSERT INTO vacuna (nroSerieDosis, marca, medida, fechaCaduca, colocada)"
+        String sql = "INSERT INTO vacuna (nroSerieDosis, marca, medida, fechaCaduca, colocada) "
                 + "VALUES(?, ?, ?, ?, ?)";
         
          try {
@@ -47,7 +47,7 @@ public class VacunaData {
         } catch (SQLException ex) {
             
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
-            
+            ex.getStackTrace();
         }
         
         
