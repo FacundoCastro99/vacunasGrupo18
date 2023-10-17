@@ -7,8 +7,8 @@ import java.time.LocalDate;
 
 public class Vacuna {
     
-    private int nroSerieDosis;
-    private Laboratorio labMarca;
+   private int nroSerieDosis;
+   private Laboratorio labMarca;
    private double medida;
    private LocalDate fechaCaduca;
    private boolean colocada;
