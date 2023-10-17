@@ -3,12 +3,9 @@
 package vacunasgrupo18;
 
 import java.time.LocalDate;
-import java.time.Month;
-import vacunasgrupo18.AccesoADatos.CitaVacunacionData;
 import vacunasgrupo18.AccesoADatos.CiudadanoData;
 import vacunasgrupo18.AccesoADatos.LaboratorioData;
 import vacunasgrupo18.AccesoADatos.VacunaData;
-import vacunasgrupo18.Entidades.CitaVacunacion;
 import vacunasgrupo18.Entidades.Ciudadano;
 import vacunasgrupo18.Entidades.Laboratorio;
 import vacunasgrupo18.Entidades.Vacuna;
@@ -39,25 +36,12 @@ public class VacunasGrupo18 {
        //      System.out.println("nombre del laboratorio " + labEncontrado.getNomLaboratorio());
       //   }
       
-         /*LaboratorioData labData = new LaboratorioData();
-         Laboratorio lab = labData.buscarLaboratorioPorCuit(20124578);
+         LaboratorioData labData = new LaboratorioData();
+         Laboratorio lab = labData.buscarLaboratorioPorCuit(2023568976);
          VacunaData vacunD=new VacunaData();
          
-         Vacuna vacu = new Vacuna(1234, lab, 0.3, LocalDate.of(2022, 12, 23), true);
+         Vacuna vacu = new Vacuna(1365, lab, 0.9, LocalDate.of(2024, 12, 23), false);
          
-         vacunD.guardarVacuna(vacu);*/
-         
-         CiudadanoData ciudaD = new CiudadanoData();
-         VacunaData vacuD = new VacunaData();
-         Ciudadano ciuda = ciudaD.buscarCiudadanoPorDni(42547958);
-         Vacuna vacuna = vacuD.buscarVacunaPorSerie(0);
-         CitaVacunacionData citaD = new CitaVacunacionData();
-         
-         CitaVacunacion cita = new CitaVacunacion(ciuda, 2, LocalDate.of(2024, 11, 22), "Lopez Lima", LocalDate.of(2024, 11, 22), vacuna);
-            
-         citaD.guardarCita(cita);
-         
-         
-         
+         vacunD.guardarVacuna(vacu);
 }
 }
