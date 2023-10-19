@@ -53,8 +53,10 @@ public class VacunasGrupo18 {
          Vacuna vacu = vacuD.buscarVacunaPorSerie(0);
          CitaVacunacionData citaD = new CitaVacunacionData();
          
-         CitaVacunacion cita = new CitaVacunacion(ciuda, 4, LocalDate.of(2023, 12, 22), "Lopez Lima 2", LocalDate.of(2023, 12, 22), vacu);
+         CitaVacunacion cita = new CitaVacunacion(4, ciuda, 4, LocalDate.of(2021, 12, 22), "Lopez Lima 7", LocalDate.of(2024, 12, 22), vacu);
          
-         citaD.guardarCita(cita);
+         //citaD.guardarCita(cita);
+         citaD.modificarCita(cita);
+         
 }
 }
