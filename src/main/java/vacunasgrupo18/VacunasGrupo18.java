@@ -47,14 +47,14 @@ public class VacunasGrupo18 {
          vacunD.guardarVacuna(vacu);*/
          
          
-         CiudadanoData ciudaD = new CiudadanoData();
-         VacunaData vacuD = new VacunaData();
-         Ciudadano ciuda = ciudaD.buscarCiudadanoPorDni(23756847);
-         Vacuna vacu = vacuD.buscarVacunaPorSerie(0);
-         CitaVacunacionData citaD = new CitaVacunacionData();
-         
-         CitaVacunacion cita = new CitaVacunacion(ciuda, 4, LocalDate.of(2023, 12, 22), "Lopez Lima 2", LocalDate.of(2023, 12, 22), vacu);
-         
-         citaD.guardarCita(cita);
+//         CiudadanoData ciudaD = new CiudadanoData();
+//         VacunaData vacuD = new VacunaData();
+//         Ciudadano ciuda = ciudaD.buscarCiudadanoPorDni(23756847);
+//         Vacuna vacu = vacuD.buscarVacunaPorSerie(0);
+//         CitaVacunacionData citaD = new CitaVacunacionData();
+//         
+//         CitaVacunacion cita = new CitaVacunacion(ciuda, 4, LocalDate.of(2023, 12, 22), "Lopez Lima 2", LocalDate.of(2023, 12, 22), vacu);
+//         
+//         citaD.guardarCita(cita);
 }
 }

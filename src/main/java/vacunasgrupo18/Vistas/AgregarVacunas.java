@@ -63,7 +63,7 @@ public class AgregarVacunas extends javax.swing.JInternalFrame {
 
         jTextField2.setText("jTextField2");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dosis 1 Medida 0.3", "Dosis 2 Medida 0.5", "Dosis 3 Medida 0.9", " " }));
 
         jButton1.setText("Guardar");
 
