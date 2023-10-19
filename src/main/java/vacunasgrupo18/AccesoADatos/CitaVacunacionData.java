@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import vacunasgrupo18.Entidades.CitaVacunacion;
-import vacunasgrupo18.Entidades.Vacuna;
+
 
 
 public class CitaVacunacionData {
@@ -61,5 +61,38 @@ public class CitaVacunacionData {
         
     }
     
+    public void modificarCita(CitaVacunacion cita){
+        
+        String sql = "UPDATE citavacunacion SET Persona = ?, codRefuerzo = ?, fechaHoraCita = ?, centroVacunacion = ?, fechaHoraColoca = ?, Dosis = ?"
+                + " WHERE codCita = ?";
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, cita.getPersona().getDni());
+            ps.setInt(2, cita.getCodRefuerzo());
+            ps.setDate(3, Date.valueOf(cita.getFechaHoraCita()));
+            ps.setString(4, cita.getCentroVacunacion());
+            ps.setDate(5, Date.valueOf(cita.getFechaHoraColoca()));
+            ps.setInt(6, cita.getDosis().getNroSerieDosis());
+            ps.setInt(7, cita.getCodCita());
+            int exito = ps.executeUpdate();
+            
+            if(exito == 1){
+                
+                JOptionPane.showMessageDialog(null, "Cita modificado");
+                
+                
+            }
+           
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+    }
     
+
 }
