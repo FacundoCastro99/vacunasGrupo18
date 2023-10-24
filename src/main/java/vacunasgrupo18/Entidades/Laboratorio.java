@@ -4,7 +4,7 @@ package vacunasgrupo18.Entidades;
 
 public class Laboratorio {
     
-    private int cuit;
+    private long cuit;
     private String nomLaboratorio;
     private String pais;
     private String domComercial;
@@ -14,7 +14,7 @@ public class Laboratorio {
     public Laboratorio() {
     }
 
-    public Laboratorio(int cuit, String nomLaboratorio, String pais, String domComercial) {
+    public Laboratorio(long cuit, String nomLaboratorio, String pais, String domComercial) {
         this.cuit = cuit;
         this.nomLaboratorio = nomLaboratorio;
         this.pais = pais;
@@ -23,11 +23,11 @@ public class Laboratorio {
 
     
 
-    public int getCuit() {
+    public long getCuit() {
         return cuit;
     }
 
-    public void setCuit(int cuit) {
+    public void setCuit(long cuit) {
         this.cuit = cuit;
     }
 
@@ -57,7 +57,7 @@ public class Laboratorio {
 
     @Override
     public String toString() {
-        return "Laboratorio{" + "cuit=" + cuit + ", domComercial=" + domComercial + ", nomLaboratorio=" + nomLaboratorio + ", pais=" + pais + '}';
+        return nomLaboratorio;
     }
     
     

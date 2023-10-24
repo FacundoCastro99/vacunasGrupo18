@@ -38,25 +38,25 @@ public class VacunasGrupo18 {
        //      System.out.println("nombre del laboratorio " + labEncontrado.getNomLaboratorio());
       //   }
       
-         /*LaboratorioData labData = new LaboratorioData();
-         Laboratorio lab = labData.buscarLaboratorioPorCuit(20124578);
-         VacunaData vacunD=new VacunaData();
+         //LaboratorioData labData = new LaboratorioData();
+         //Laboratorio lab = labData.buscarLaboratorioPorCuit(20124578);
+         //VacunaData vacunD=new VacunaData();
          
-         Vacuna vacu = new Vacuna(1365, lab, 0.9, LocalDate.of(2024, 12, 23), false);
+         //Vacuna vacu = new Vacuna(1365, lab, 0.9, LocalDate.of(2024, 12, 23), false);
          
-         vacunD.guardarVacuna(vacu);*/
+         //vacunD.guardarVacuna(vacu);
+         //vacunD.vacunaColocada(0);
          
-         
-         CiudadanoData ciudaD = new CiudadanoData();
-         VacunaData vacuD = new VacunaData();
-         Ciudadano ciuda = ciudaD.buscarCiudadanoPorDni(23756847);
-         Vacuna vacu = vacuD.buscarVacunaPorSerie(0);
+         //CiudadanoData ciudaD = new CiudadanoData();
+         //VacunaData vacuD = new VacunaData();
+         //Ciudadano ciuda = ciudaD.buscarCiudadanoPorDni(23756847);
+         //Vacuna vacu = vacuD.buscarVacunaPorSerie(0);
          CitaVacunacionData citaD = new CitaVacunacionData();
          
-         CitaVacunacion cita = new CitaVacunacion(4, ciuda, 4, LocalDate.of(2021, 12, 22), "Lopez Lima 7", LocalDate.of(2024, 12, 22), vacu);
+         //CitaVacunacion cita = new CitaVacunacion(4, ciuda, 4, LocalDate.of(2021, 12, 22), "Lopez Lima 7", LocalDate.of(2024, 12, 22), vacu);
          
          //citaD.guardarCita(cita);
-         citaD.modificarCita(cita);
-         
+         //citaD.modificarCita(cita);
+         citaD.eliminarCita(6);
 }
 }

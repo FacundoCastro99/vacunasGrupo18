@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import vacunasgrupo18.Entidades.Ciudadano;
 import vacunasgrupo18.Entidades.Laboratorio;
@@ -26,7 +28,7 @@ public class LaboratorioData {
         try {
             
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, labo.getCuit());
+            ps.setLong(1, labo.getCuit());
             ps.setString(2, labo.getNomLaboratorio());
             ps.setString(3, labo.getPais());
             ps.setString(4, labo.getDomComercial());
@@ -60,7 +62,7 @@ public class LaboratorioData {
             ps.setString(1, labo.getNomLaboratorio());
             ps.setString(2, labo.getPais());
             ps.setString(3, labo.getDomComercial());
-            ps.setInt(4, labo.getCuit());
+            ps.setLong(4, labo.getCuit());
             int exito = ps.executeUpdate();
             
             if(exito == 1){
@@ -80,7 +82,7 @@ public class LaboratorioData {
     
     
     
-    public Laboratorio buscarLaboratorioPorCuit(int cuit){
+    public Laboratorio buscarLaboratorioPorCuit(long cuit){
         
         String sql = "SELECT CUIT, nomLaboratorio, pais, domComercial FROM laboratorio WHERE CUIT = ?";
         
@@ -89,13 +91,13 @@ public class LaboratorioData {
         try {
             
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, cuit);
+            ps.setLong(1, cuit);
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()){
                 
                 labo = new Laboratorio();
-                labo.setCuit(rs.getInt("CUIT"));
+                labo.setCuit(rs.getLong("CUIT"));
                 labo.setNomLaboratorio(rs.getString("nomLaboratorio"));
                 labo.setPais(rs.getString("pais"));
                 labo.setDomComercial(rs.getString("domComercial"));
@@ -158,6 +160,42 @@ public class LaboratorioData {
         
         return labo;
                   
+    }
+    
+    public List<Laboratorio> listarLabs(){
+        
+        String sql = "SELECT CUIT, nomLaboratorio, pais, domComercial FROM laboratorio";
+        
+        ArrayList<Laboratorio> laboratorios = new ArrayList<>();
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                Laboratorio laboratorio = new Laboratorio();
+                laboratorio.setCuit(rs.getLong("CUIT"));
+                laboratorio.setNomLaboratorio(rs.getString("nomLaboratorio"));
+                laboratorio.setPais(rs.getString("pais"));
+                laboratorio.setDomComercial(rs.getString("domComercial"));
+
+                
+                laboratorios.add(laboratorio);
+                
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+        return laboratorios;
+                
     }
     
 }

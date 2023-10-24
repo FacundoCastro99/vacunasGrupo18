@@ -4,18 +4,25 @@
  */
 package vacunasgrupo18.Vistas;
 
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import vacunasgrupo18.AccesoADatos.LaboratorioData;
+import vacunasgrupo18.Entidades.Ciudadano;
+import vacunasgrupo18.Entidades.Laboratorio;
+
 /**
  *
  * @author lucia
  */
 public class AgregarLaboratorio extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form LaboratoriosYVacunas
-     */
+    LaboratorioData labData = new LaboratorioData();
+    Laboratorio labActual = null;
+    
     public AgregarLaboratorio() {
         initComponents();
         setBounds(135, 5, 425, 425);
+        this.getContentPane().setBackground(new Color(0, 153, 255));
     }
 
     /**
@@ -27,26 +34,22 @@ public class AgregarLaboratorio extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jtCuit = new javax.swing.JTextField();
+        jtNomLab = new javax.swing.JTextField();
+        jtPais = new javax.swing.JTextField();
+        jtDomCom = new javax.swing.JTextField();
+        jbguardar = new javax.swing.JButton();
+        jblimpiar = new javax.swing.JButton();
+        jbBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Agregar Laboratorio");
+        setTitle("Registrar Laboratorio");
 
         jLabel2.setText("CUIT");
 
@@ -56,107 +59,170 @@ public class AgregarLaboratorio extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Dominio Comercial");
 
-        jTextField1.setText("jTextField1");
+        jbguardar.setText("Registrar");
+        jbguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbguardarActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setText("jTextField2");
+        jblimpiar.setText("Nuevo");
+        jblimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jblimpiarActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setText("jTextField4");
-
-        jButton1.setText("Guardar");
-
-        jButton2.setText("Modificar");
-
-        jButton3.setText("Salir");
-
-        jButton4.setText("Limpiar");
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jblimpiar)
+                        .addGap(72, 72, 72)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbguardar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbBuscar))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(144, 144, 144)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 148, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton2)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addGap(31, 31, 31))))
+                                .addComponent(jtDomCom, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                                .addComponent(jtPais, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtNomLab, javax.swing.GroupLayout.Alignment.LEADING)))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtNomLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88)
+                    .addComponent(jtDomCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(119, Short.MAX_VALUE))
+                    .addComponent(jbguardar)
+                    .addComponent(jblimpiar))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
+        
+        try{
+            
+            Long cuit = Long.parseLong(jtCuit.getText());
+            String nombre = jtNomLab.getText();
+            String pais = jtPais.getText();
+            String domCom = jtDomCom.getText();
+
+        
+        if(nombre.isEmpty() || pais.isEmpty() || domCom.isEmpty()){
+            
+            JOptionPane.showMessageDialog(this, "Complete los campos obligatorios");
+            return;
+   
+        }
+        
+        if(labActual == null){
+            
+            labActual = new Laboratorio(cuit, nombre, pais, domCom);
+            labData.guardarLaboratorio(labActual);
+            
+        } else {
+            
+            labActual.setCuit(cuit);
+            labActual.setNomLaboratorio(nombre);
+            labActual.setPais(pais);
+            labActual.setDomComercial(domCom);
+            labData.modificarLaboratorio(labActual);
+            
+        }
+        
+        
+
+        }catch(NumberFormatException ex){
+            
+            JOptionPane.showMessageDialog(this, "Debe ingresar un cuit valido");
+            ex.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jbguardarActionPerformed
+
+    private void jblimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jblimpiarActionPerformed
+       
+        limpiarCampos();
+        labActual = null;
+        
+    }//GEN-LAST:event_jblimpiarActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        
+        Long cuit = Long.parseLong(jtCuit.getText());
+        
+        labActual = labData.buscarLaboratorioPorCuit(cuit);
+        
+        if(labActual != null){
+            
+            jtNomLab.setText(labActual.getNomLaboratorio());
+            jtDomCom.setText(labActual.getDomComercial());
+            jtPais.setText(labActual.getPais());           
+            
+        }
+        
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbguardar;
+    private javax.swing.JButton jblimpiar;
+    private javax.swing.JTextField jtCuit;
+    private javax.swing.JTextField jtDomCom;
+    private javax.swing.JTextField jtNomLab;
+    private javax.swing.JTextField jtPais;
     // End of variables declaration//GEN-END:variables
+
+    public void limpiarCampos(){
+        
+        jtCuit.setText("");
+        jtDomCom.setText("");
+        jtNomLab.setText("");
+        jtPais.setText("");
+        
+    }
+    
 }

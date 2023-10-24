@@ -94,5 +94,31 @@ public class CitaVacunacionData {
         
     }
     
+    public void eliminarCita(int codCita){
+         
+         String sql = "DELETE FROM citavacunacion WHERE codCita = ?";
+         
+         try{
+             
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1, codCita);
+             int exito = ps.executeUpdate();
+             
+             if(exito == 1){
+                 
+                 JOptionPane.showMessageDialog(null, "Cita eliminada");
+                 
+             }
+             
+             
+         } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+         
+         
+     }
+    
 
 }

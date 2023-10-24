@@ -213,7 +213,7 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
             String PatologiaNo = "Ninguna";
 
         
-        if(nombre.isEmpty()){
+        if(nombre.isEmpty() || trabajo.isEmpty()){
             
             JOptionPane.showMessageDialog(this, "Complete los campos obligatorios");
             return;

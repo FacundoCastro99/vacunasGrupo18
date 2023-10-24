@@ -32,6 +32,15 @@ public class Vacuna {
         this.colocada = colocada;
     }
 
+    public Vacuna(int nroSerieDosis, Laboratorio labMarca, double medida, LocalDate fechaCaduca) {
+        this.nroSerieDosis = nroSerieDosis;
+        this.labMarca = labMarca;
+        this.medida = medida;
+        this.fechaCaduca = fechaCaduca;
+    }
+    
+    
+
     public Laboratorio getLabMarca() {
         return labMarca;
     }
