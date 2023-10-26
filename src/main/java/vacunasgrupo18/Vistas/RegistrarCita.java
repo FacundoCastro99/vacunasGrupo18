@@ -4,18 +4,42 @@
  */
 package vacunasgrupo18.Vistas;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
+import vacunasgrupo18.AccesoADatos.CitaVacunacionData;
+import vacunasgrupo18.AccesoADatos.CiudadanoData;
+import vacunasgrupo18.Entidades.CitaVacunacion;
+import vacunasgrupo18.Entidades.Ciudadano;
+
 /**
  *
  * @author lucia
  */
 public class RegistrarCita extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form RegistrarCita
-     */
+    private CitaVacunacionData citaData;
+    CitaVacunacion citaActual = null;
+    CiudadanoData ciudaData = new CiudadanoData();
+    Ciudadano ciudaActual = new Ciudadano();
+    
     public RegistrarCita() {
         initComponents();
         setBounds(135, 5, 425, 425);
+        
+        citaData = new CitaVacunacionData();
+        
     }
 
     /**
@@ -29,147 +53,254 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jtDni = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jTextField5 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        jdFecha = new com.toedter.calendar.JDateChooser();
+        jbRegistrar = new javax.swing.JButton();
+        jbPostergar = new javax.swing.JButton();
+        jbNuevo = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jtCentro = new javax.swing.JTextField();
+        jcRefuerzo = new javax.swing.JComboBox<>();
+        jbBuscar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(51, 153, 255));
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Registrar Cita"));
+        setBorder(null);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setTitle("Registrar Cita");
 
-        jLabel1.setText("DNI");
+        jLabel1.setText("DNI:");
 
-        jLabel3.setText(" Nro. Serie de Vacuna");
+        jLabel3.setText("Codigo de refuerzo:");
 
-        jButton1.setText("Buscar");
-
-        jLabel2.setText("Apellido y Nombre");
-
-        jLabel4.setText("Laboratorio");
-
-        jLabel5.setText("Fecha Cita");
-
-        jCheckBox1.setText("1 Dosis");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+        jtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtDniKeyTyped(evt);
             }
         });
 
-        jCheckBox2.setText("2 Dosis");
+        jLabel5.setText("Fecha y hora de la cita:");
 
-        jCheckBox3.setText("3 Dosis");
+        jbRegistrar.setText("Registrar");
+        jbRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRegistrarActionPerformed(evt);
+            }
+        });
+
+        jbPostergar.setText("Postergar");
+        jbPostergar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPostergarActionPerformed(evt);
+            }
+        });
+
+        jbNuevo.setText("Nueva cita");
+
+        jLabel4.setText("Centro de Vacunacion:");
+
+        jcRefuerzo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3" }));
+
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(66, 66, 66)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox1)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jCheckBox2)))
-                                .addGap(0, 31, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(29, 29, 29)
+                                .addComponent(jdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(127, 127, 127)))
-                        .addComponent(jCheckBox3)))
-                .addContainerGap())
+                                .addComponent(jLabel4)
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbBuscar))
+                                    .addComponent(jtCentro, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcRefuerzo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jbNuevo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbPostergar)
+                        .addGap(64, 64, 64)
+                        .addComponent(jbRegistrar)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)))
-                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
+                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jbBuscar))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jtCentro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jcRefuerzo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62))))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jdFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbRegistrar)
+                    .addComponent(jbPostergar)
+                    .addComponent(jbNuevo))
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void jbPostergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPostergarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_jbPostergarActionPerformed
+
+    private void jtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDniKeyTyped
+       
+        if(jtDni.getText().length() >= 8)
+    {
+        evt.consume();
+    }
+        
+    }//GEN-LAST:event_jtDniKeyTyped
+
+    private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
+        
+        try{
+            
+            Integer dni = Integer.parseInt(jtDni.getText());
+            Ciudadano datosCiuda = (Ciudadano) ciudaData.buscarCiudadanoPorDni(dni);
+            String centro = jtCentro.getText();
+            Integer codR = Integer.parseInt(jcRefuerzo.getSelectedItem().toString());
+            Calendar cal = jdFecha.getCalendar();
+            Date input = cal.getTime();
+            LocalDate fecha = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        if(centro.isEmpty() || codR.equals(0)){
+            
+            JOptionPane.showMessageDialog(this, "Complete los campos obligatorios");
+            return;
+   
+        }
+        
+        if(citaActual == null){
+            
+            citaActual = new CitaVacunacion(datosCiuda, codR, fecha, centro);
+            citaData.guardarCita(citaActual);
+            MandarMail(datosCiuda.getEmail());
+            
+            
+        } else {
+            
+            citaActual.setPersona(datosCiuda);
+            citaActual.setCodRefuerzo(codR);
+            citaActual.setFechaHoraCita(fecha);
+            citaActual.setCentroVacunacion(centro);
+            citaData.modificarCita(citaActual);
+            
+        }
+        
+        
+
+        }catch(NumberFormatException ex){
+            
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero de serie valido");
+            ex.printStackTrace();
+            
+        }
+        
+    }//GEN-LAST:event_jbRegistrarActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        
+        
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbNuevo;
+    private javax.swing.JButton jbPostergar;
+    private javax.swing.JButton jbRegistrar;
+    private javax.swing.JComboBox<String> jcRefuerzo;
+    private com.toedter.calendar.JDateChooser jdFecha;
+    private javax.swing.JTextField jtCentro;
+    private javax.swing.JTextField jtDni;
     // End of variables declaration//GEN-END:variables
+
+ public void MandarMail(String correo){
+     
+     Calendar cal = jdFecha.getCalendar();
+     Date input = cal.getTime();
+     LocalDate fecha = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+     
+    String correoEnvia = "123.roberto.barrios@gmail.com";
+    String contraseña = "ztsp ahrl fvlk exob";
+    String mensaje = "DNI: " + jtDni.getText() + ", Codigo de refuerzo: " + jcRefuerzo.getSelectedItem().toString() + ", Fecha: " + fecha + ", Centro de Vacunación: " + jtCentro.getText();
+    
+    Properties objetoPEC = new Properties();// se crea el objeto objetoPEC del tipo Properties (PEC para envio de correo)
+    
+    objetoPEC.put("mail.smtp.host","smtp.gmail.com");
+    objetoPEC.setProperty("mail.smtp.starttls.enable","true");
+    objetoPEC.put("mail.smtp.port","587");
+    objetoPEC.setProperty("mail.smtp.port","587");
+    objetoPEC.put("mail.smtp.user",correoEnvia);
+    objetoPEC.setProperty("mail.smtp.auth", "true");
+    
+        //crea un objeto sesion
+        Session sesion = Session.getDefaultInstance(objetoPEC);
+        // se crea otro objeto mail
+        MimeMessage mail = new MimeMessage(sesion);
+        // creo otro objeto mail  y llama al otro objeto sesion
+    
+            try {
+                mail.setFrom(new InternetAddress(correoEnvia));
+                mail.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
+                mail.setSubject("Turno Confirmado Vacunacion: COVID");
+                mail.setText(mensaje);
+                
+                Transport transporte =  sesion.getTransport("smtp");
+                //creo otro objeto transporte
+                transporte.connect(correoEnvia,contraseña);
+                transporte.sendMessage(mail,mail.getRecipients(Message.RecipientType.TO));
+                transporte.close();
+                
+                JOptionPane.showMessageDialog(null,"El correo se envio CORRECTAMENTE");
+                      
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null,"Error de envio de CORREO...\n" + ex);
+    }
+        
+        
+    }
+
+
 }

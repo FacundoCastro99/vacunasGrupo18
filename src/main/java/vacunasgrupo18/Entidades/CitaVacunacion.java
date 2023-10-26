@@ -17,6 +17,8 @@ public class CitaVacunacion {
 
     public CitaVacunacion() {
     }
+    
+    
 
     public CitaVacunacion(Ciudadano persona, int codRefuerzo, LocalDate fechaHoraCita, String centroVacunacion, LocalDate fechaHoraColoca, Vacuna dosis) {
         this.persona = persona;
@@ -38,6 +40,15 @@ public class CitaVacunacion {
         this.fechaHoraColoca = fechaHoraColoca;
         this.dosis = dosis;
     }
+
+    public CitaVacunacion(Ciudadano persona, int codRefuerzo, LocalDate fechaHoraCita, String centroVacunacion) {
+        this.persona = persona;
+        this.codRefuerzo = codRefuerzo;
+        this.fechaHoraCita = fechaHoraCita;
+        this.centroVacunacion = centroVacunacion;
+    }
+    
+    
 
     public int getCodCita() {
         return codCita;
