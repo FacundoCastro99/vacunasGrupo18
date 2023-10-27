@@ -18,9 +18,24 @@ public class CitaVacunacion {
    private Timestamp fechaHoraColoca;
    private double dosis;
    private boolean citaConcretada;
+   private boolean citaCancelada;
 
     public CitaVacunacion() {
     }
+
+    public CitaVacunacion(Ciudadano persona, Ciudadano email, int codRefuerzo, Timestamp fechaHoraCita, String centroVacunacion, Timestamp fechaHoraColoca, double dosis, boolean citaConcretada, boolean citaCancelada) {
+        this.persona = persona;
+        this.email = email;
+        this.codRefuerzo = codRefuerzo;
+        this.fechaHoraCita = fechaHoraCita;
+        this.centroVacunacion = centroVacunacion;
+        this.fechaHoraColoca = fechaHoraColoca;
+        this.dosis = dosis;
+        this.citaConcretada = citaConcretada;
+        this.citaCancelada = citaCancelada;
+    }
+    
+    
 
     public CitaVacunacion(Ciudadano persona, int codRefuerzo, Timestamp fechaHoraCita, String centroVacunacion, Timestamp fechaHoraColoca, double dosis) {
         this.persona = persona;
@@ -123,6 +138,14 @@ public class CitaVacunacion {
 
     public void setCitaConcretada(boolean citaConcretada) {
         this.citaConcretada = citaConcretada;
+    }
+
+    public boolean isCitaCancelada() {
+        return citaCancelada;
+    }
+
+    public void setCitaCancelada(boolean citaCancelada) {
+        this.citaCancelada = citaCancelada;
     }
     
     

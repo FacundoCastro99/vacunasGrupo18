@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 import javax.mail.Message;
@@ -34,8 +36,8 @@ public class CitaVacunacionData {
     
     public void guardarCita(CitaVacunacion cita){
         
-        String sql = "INSERT INTO citavacunacion (persona, email, codRefuerzo, fechaHoraCita, centroVacunacion, citaConcretada)"
-                + " VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO citavacunacion (persona, email, codRefuerzo, fechaHoraCita, centroVacunacion, citaConcretada, citaCancelada)"
+                + " VALUES(?, ?, ?, ?, ?, ?, ?)";
         
          try {
             
@@ -46,6 +48,7 @@ public class CitaVacunacionData {
             ps.setTimestamp(4, new java.sql.Timestamp(cita.getFechaHoraCita().getTime()));
             ps.setString(5, cita.getCentroVacunacion());
             ps.setBoolean(6, cita.isCitaConcretada());
+            ps.setBoolean(7, cita.isCitaCancelada());
             
             ps.executeUpdate();
             
@@ -101,9 +104,9 @@ public class CitaVacunacionData {
         
     }
     
-    public void eliminarCita(int codCita){
+    public void cancelarCita(int codCita){
          
-         String sql = "DELETE FROM citavacunacion WHERE codCita = ?";
+         String sql = "UPDATE citavacunacion SET citaCancelada = 1 WHERE codCita = ?";
          
          try{
              
@@ -113,7 +116,7 @@ public class CitaVacunacionData {
              
              if(exito == 1){
                  
-                 JOptionPane.showMessageDialog(null, "Cita eliminada");
+                 JOptionPane.showMessageDialog(null, "Cita cancelada");
                  
              }
              
@@ -170,7 +173,7 @@ public class CitaVacunacionData {
     
     public List<CitaVacunacion> listarCitas(){
         
-        String sql = "SELECT codCita, Persona, email, codRefuerzo, fechaHoraCita, centroVacunacion, fechaHoraColoca, Dosis, citaConcretada FROM citavacunacion";
+        String sql = "SELECT codCita, Persona, codRefuerzo, fechaHoraCita, centroVacunacion, fechaHoraColoca, Dosis, citaConcretada, citaCancelada FROM citavacunacion";
         
         ArrayList<CitaVacunacion> citas = new ArrayList<>();
         
@@ -185,13 +188,13 @@ public class CitaVacunacionData {
                 cita.setCodCita(rs.getInt("codCita"));
                 Ciudadano ciuda = cd.buscarCiudadanoPorNombre(rs.getString("Persona"));
                 cita.setPersona(ciuda);
-                cita.setEmail(ciuda);
                 cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
                 cita.setFechaHoraCita(rs.getTimestamp("fechaHoraCita"));
                 cita.setCentroVacunacion(rs.getString("centroVacunacion"));
                 cita.setFechaHoraColoca(rs.getTimestamp("fechaHoraColoca"));
-                cita.setDosis(rs.getDouble("centroVacunacion"));
-                cita.setCentroVacunacion(rs.getString("centroVacunacion"));
+                cita.setDosis(rs.getDouble("Dosis"));
+                cita.setCitaConcretada(rs.getBoolean("citaConcretada"));
+                cita.setCitaCancelada(rs.getBoolean("citaCancelada"));
                 
                 citas.add(cita);
                 
@@ -209,7 +212,219 @@ public class CitaVacunacionData {
                 
     }
     
+    public List<CitaVacunacion> listarCitasConcretadas(){
+        
+        Calendar cal = Calendar.getInstance();
+        Date fechaActual = new Date(cal.getTimeInMillis());
+        cal.setTime(fechaActual);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date primerDiaDelMes = new Date(cal.getTimeInMillis());
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaActualStr = sdf.format(fechaActual);
+        String primerDiaDelMesStr = sdf.format(primerDiaDelMes);
+        
+        
+        String sql = "SELECT codCita, Persona, codRefuerzo, fechaHoraCita, centroVacunacion, fechaHoraColoca, Dosis, citaConcretada, citaCancelada FROM citavacunacion WHERE citaConcretada = 1 AND fechaHoraCita >= ? AND fechaHoraCita < ?";
+        
+        ArrayList<CitaVacunacion> citas = new ArrayList<>();
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, primerDiaDelMesStr);
+            ps.setString(2, fechaActualStr);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                CitaVacunacion cita = new CitaVacunacion();
+                cita.setCodCita(rs.getInt("codCita"));
+                Ciudadano ciuda = cd.buscarCiudadanoPorNombre(rs.getString("Persona"));
+                cita.setPersona(ciuda);
+                cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
+                cita.setFechaHoraCita(rs.getTimestamp("fechaHoraCita"));
+                cita.setCentroVacunacion(rs.getString("centroVacunacion"));
+                cita.setFechaHoraColoca(rs.getTimestamp("fechaHoraColoca"));
+                cita.setDosis(rs.getDouble("Dosis"));
+                cita.setCitaConcretada(rs.getBoolean("citaConcretada"));
+                cita.setCitaCancelada(rs.getBoolean("citaCancelada"));
+                
+                citas.add(cita);
+                
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+        return citas;
+                
+    }
     
+    public List<CitaVacunacion> listarCitasCanceladas(){
+        
+        Calendar cal = Calendar.getInstance();
+        Date fechaActual = new Date(cal.getTimeInMillis());
+        cal.setTime(fechaActual);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date primerDiaDelMes = new Date(cal.getTimeInMillis());
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaActualStr = sdf.format(fechaActual);
+        String primerDiaDelMesStr = sdf.format(primerDiaDelMes);
+        
+        
+        String sql = "SELECT codCita, Persona, codRefuerzo, fechaHoraCita, centroVacunacion, fechaHoraColoca, Dosis, citaConcretada, citaCancelada FROM citavacunacion WHERE citaCancelada = 1 AND fechaHoraCita >= ? AND fechaHoraCita < ?";
+        
+        ArrayList<CitaVacunacion> citas = new ArrayList<>();
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, primerDiaDelMesStr);
+            ps.setString(2, fechaActualStr);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                CitaVacunacion cita = new CitaVacunacion();
+                cita.setCodCita(rs.getInt("codCita"));
+                Ciudadano ciuda = cd.buscarCiudadanoPorNombre(rs.getString("Persona"));
+                cita.setPersona(ciuda);
+                cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
+                cita.setFechaHoraCita(rs.getTimestamp("fechaHoraCita"));
+                cita.setCentroVacunacion(rs.getString("centroVacunacion"));
+                cita.setFechaHoraColoca(rs.getTimestamp("fechaHoraColoca"));
+                cita.setDosis(rs.getDouble("Dosis"));
+                cita.setCitaConcretada(rs.getBoolean("citaConcretada"));
+                cita.setCitaCancelada(rs.getBoolean("citaCancelada"));
+                
+                citas.add(cita);
+                
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+        return citas;
+                
+    }
+    
+    public List<CitaVacunacion> listarCitasPendientes(){
+        
+        Calendar cal = Calendar.getInstance();
+        Date fechaActual = new Date(cal.getTimeInMillis());
+        cal.setTime(fechaActual);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date primerDiaDelMes = new Date(cal.getTimeInMillis());
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaActualStr = sdf.format(fechaActual);
+        String primerDiaDelMesStr = sdf.format(primerDiaDelMes);
+        
+        String sql = "SELECT codCita, Persona, codRefuerzo, fechaHoraCita, centroVacunacion, fechaHoraColoca, Dosis, citaConcretada, citaCancelada FROM citavacunacion WHERE fechaHoraCita > NOW() AND fechaHoraCita >= ? AND fechaHoraCita < ?";
+        
+        ArrayList<CitaVacunacion> citas = new ArrayList<>();
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, primerDiaDelMesStr);
+            ps.setString(2, fechaActualStr);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                CitaVacunacion cita = new CitaVacunacion();
+                cita.setCodCita(rs.getInt("codCita"));
+                Ciudadano ciuda = cd.buscarCiudadanoPorNombre(rs.getString("Persona"));
+                cita.setPersona(ciuda);
+                cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
+                cita.setFechaHoraCita(rs.getTimestamp("fechaHoraCita"));
+                cita.setCentroVacunacion(rs.getString("centroVacunacion"));
+                cita.setFechaHoraColoca(rs.getTimestamp("fechaHoraColoca"));
+                cita.setDosis(rs.getDouble("Dosis"));
+                cita.setCitaConcretada(rs.getBoolean("citaConcretada"));
+                cita.setCitaCancelada(rs.getBoolean("citaCancelada"));
+                
+                citas.add(cita);
+                
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+        return citas;
+                
+    }
+    
+    public List<CitaVacunacion> listarCitasVencidas(){
+        
+        Calendar cal = Calendar.getInstance();
+        Date fechaActual = new Date(cal.getTimeInMillis());
+        cal.setTime(fechaActual);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date primerDiaDelMes = new Date(cal.getTimeInMillis());
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaActualStr = sdf.format(fechaActual);
+        String primerDiaDelMesStr = sdf.format(primerDiaDelMes);
+        
+        String sql = "SELECT codCita, Persona, codRefuerzo, fechaHoraCita, centroVacunacion, fechaHoraColoca, Dosis, citaConcretada, citaCancelada FROM citavacunacion WHERE citaConcretada = 0 AND fechaHoraCita < NOW() AND fechaHoraCita >= ? AND fechaHoraCita < ?";
+        
+        ArrayList<CitaVacunacion> citas = new ArrayList<>();
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, primerDiaDelMesStr);
+            ps.setString(2, fechaActualStr);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                CitaVacunacion cita = new CitaVacunacion();
+                cita.setCodCita(rs.getInt("codCita"));
+                Ciudadano ciuda = cd.buscarCiudadanoPorNombre(rs.getString("Persona"));
+                cita.setPersona(ciuda);
+                cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
+                cita.setFechaHoraCita(rs.getTimestamp("fechaHoraCita"));
+                cita.setCentroVacunacion(rs.getString("centroVacunacion"));
+                cita.setFechaHoraColoca(rs.getTimestamp("fechaHoraColoca"));
+                cita.setDosis(rs.getDouble("Dosis"));
+                cita.setCitaConcretada(rs.getBoolean("citaConcretada"));
+                cita.setCitaCancelada(rs.getBoolean("citaCancelada"));
+                
+                citas.add(cita);
+                
+            }
+            
+            ps.close();
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+        return citas;
+                
+    }
 
 
 }

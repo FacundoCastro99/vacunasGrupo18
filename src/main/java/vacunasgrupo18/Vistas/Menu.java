@@ -39,6 +39,7 @@ public class Menu extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jLabel3 = new javax.swing.JLabel();
         laboYVacu1 = new javax.swing.JButton();
+        jbGCitas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -121,6 +122,13 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jbGCitas.setText("Gestion de Citas");
+        jbGCitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGCitasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
@@ -128,6 +136,8 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(panel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(laboYVacu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panel2Layout.createSequentialGroup()
                         .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(laboYVacu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -136,8 +146,7 @@ public class Menu extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(laboYVacu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbGCitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -158,6 +167,8 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(salir)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jbGCitas)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(escritorio)
         );
@@ -228,6 +239,14 @@ public class Menu extends javax.swing.JFrame {
         escritorio.moveToFront(gc);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jbGCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGCitasActionPerformed
+        escritorio.repaint();
+        GestionCitas gc = new GestionCitas();
+        gc.setVisible(true);
+        escritorio.add(gc);
+        escritorio.moveToFront(gc);
+    }//GEN-LAST:event_jbGCitasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -268,6 +287,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jbGCitas;
     private javax.swing.JButton laboYVacu;
     private javax.swing.JButton laboYVacu1;
     private java.awt.Panel panel2;

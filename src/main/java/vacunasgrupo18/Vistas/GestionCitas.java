@@ -4,6 +4,7 @@
  */
 package vacunasgrupo18.Vistas;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import vacunasgrupo18.AccesoADatos.CitaVacunacionData;
@@ -23,6 +24,13 @@ public class GestionCitas extends javax.swing.JInternalFrame {
     
     public GestionCitas() {
         initComponents();
+        
+        cvData = new CitaVacunacionData();
+        listaC = cvData.listarCitas();
+        modelo = new DefaultTableModel();
+        
+        armarCabeceraTabla();
+        
     }
 
     /**
@@ -35,14 +43,19 @@ public class GestionCitas extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtCitas = new javax.swing.JTable();
+        jbCargar = new javax.swing.JButton();
+        jrCitasPen = new javax.swing.JRadioButton();
+        jrCitasVen = new javax.swing.JRadioButton();
+        jrCitasCum = new javax.swing.JRadioButton();
+        jrCitasCan = new javax.swing.JRadioButton();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Gestion de Citas");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -53,7 +66,42 @@ public class GestionCitas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtCitas);
+
+        jbCargar.setText("Cargar todas las citas");
+        jbCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCargarActionPerformed(evt);
+            }
+        });
+
+        jrCitasPen.setText("Citas pendientes");
+        jrCitasPen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrCitasPenActionPerformed(evt);
+            }
+        });
+
+        jrCitasVen.setText("Citas vencidas");
+        jrCitasVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrCitasVenActionPerformed(evt);
+            }
+        });
+
+        jrCitasCum.setText("Citas cumplidas");
+        jrCitasCum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrCitasCumActionPerformed(evt);
+            }
+        });
+
+        jrCitasCan.setText("Citas canceladas");
+        jrCitasCan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrCitasCanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,23 +109,211 @@ public class GestionCitas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbCargar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jrCitasPen)
+                .addGap(55, 55, 55)
+                .addComponent(jrCitasVen)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jrCitasCum)
+                .addGap(49, 49, 49)
+                .addComponent(jrCitasCan)
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jrCitasPen)
+                    .addComponent(jrCitasVen)
+                    .addComponent(jrCitasCum)
+                    .addComponent(jrCitasCan))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jbCargar)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
+       
+        borrarFilaTabla();
+        
+        jrCitasCum.setSelected(false);
+        jrCitasPen.setSelected(false);
+        jrCitasVen.setSelected(false);
+        jrCitasCan.setSelected(false);
+        
+        cargarDatos();
+        
+    }//GEN-LAST:event_jbCargarActionPerformed
+
+    private void jrCitasCumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrCitasCumActionPerformed
+        
+        borrarFilaTabla();
+        
+        jrCitasPen.setSelected(false);
+        jrCitasVen.setSelected(false);
+        jrCitasCan.setSelected(false);
+        
+        cargarCitasConcretadas();
+        
+    }//GEN-LAST:event_jrCitasCumActionPerformed
+
+    private void jrCitasCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrCitasCanActionPerformed
+        
+        borrarFilaTabla();
+        
+        jrCitasPen.setSelected(false);
+        jrCitasVen.setSelected(false);
+        jrCitasCum.setSelected(false);
+        
+        cargarCitasCanceladas();
+        
+        
+    }//GEN-LAST:event_jrCitasCanActionPerformed
+
+    private void jrCitasPenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrCitasPenActionPerformed
+        
+        borrarFilaTabla();
+        
+        jrCitasCan.setSelected(false);
+        jrCitasVen.setSelected(false);
+        jrCitasCum.setSelected(false);
+        
+        cargarCitasPendientes();
+        
+    }//GEN-LAST:event_jrCitasPenActionPerformed
+
+    private void jrCitasVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrCitasVenActionPerformed
+        
+        borrarFilaTabla();
+        
+        jrCitasCan.setSelected(false);
+        jrCitasPen.setSelected(false);
+        jrCitasCum.setSelected(false);
+        
+        cargarCitasVencidas();
+        
+    }//GEN-LAST:event_jrCitasVenActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbCargar;
+    private javax.swing.JRadioButton jrCitasCan;
+    private javax.swing.JRadioButton jrCitasCum;
+    private javax.swing.JRadioButton jrCitasPen;
+    private javax.swing.JRadioButton jrCitasVen;
+    private javax.swing.JTable jtCitas;
     // End of variables declaration//GEN-END:variables
+
+    public void armarCabeceraTabla(){
+         
+         ArrayList<Object> filaCabecera = new ArrayList<>();
+         filaCabecera.add("codCita");
+         filaCabecera.add("Nombre Completo");
+         filaCabecera.add("Codigo de Refuerzo");
+         filaCabecera.add("Fecha y Hora de la Cita");
+         filaCabecera.add("Centro de la Vacunacion");
+         filaCabecera.add("Fecha y Hora de la Colocacion");
+         filaCabecera.add("Dosis");
+         filaCabecera.add("Cita Concretada");
+         filaCabecera.add("Cita Cancelada");
+         
+         for(Object it: filaCabecera){
+             
+             modelo.addColumn(it);
+             
+         }
+         
+         jtCitas.setModel(modelo);
+         
+     }
+
+    private void borrarFilaTabla(){
+         
+         int indice = modelo.getRowCount() -1;
+         
+         for (int i = indice; i>=0; i--){
+             
+             modelo.removeRow(i);
+             
+         }
+         
+      
+    }
+
+    public void cargarDatos(){
+         
+         List <CitaVacunacion> lista = cvData.listarCitas();
+         
+         for(CitaVacunacion c : lista){
+             
+             modelo.addRow(new Object[] {c.getCodCita(), c.getPersona(), c.getCodRefuerzo(), c.getFechaHoraCita(), c.getCentroVacunacion(), c.getFechaHoraColoca(), c.getDosis(), c.isCitaConcretada(), c.isCitaCancelada()});
+             
+         }
+         
+     }
+
+      private void cargarCitasConcretadas(){
+         
+         List <CitaVacunacion> lista = cvData.listarCitasConcretadas();
+         
+         for(CitaVacunacion c : lista){
+             
+             modelo.addRow(new Object[] {c.getCodCita(), c.getPersona(), c.getCodRefuerzo(), c.getFechaHoraCita(), c.getCentroVacunacion(), c.getFechaHoraColoca(), c.getDosis(), c.isCitaConcretada(), c.isCitaCancelada()});
+             
+         }
+  
+     }
+      
+      private void cargarCitasCanceladas(){
+         
+         List <CitaVacunacion> lista = cvData.listarCitasCanceladas();
+         
+         for(CitaVacunacion c : lista){
+             
+             modelo.addRow(new Object[] {c.getCodCita(), c.getPersona(), c.getCodRefuerzo(), c.getFechaHoraCita(), c.getCentroVacunacion(), c.getFechaHoraColoca(), c.getDosis(), c.isCitaConcretada(), c.isCitaCancelada()});
+             
+         }
+  
+     }
+      
+      private void cargarCitasPendientes(){
+         
+         List <CitaVacunacion> lista = cvData.listarCitasPendientes();
+         
+         for(CitaVacunacion c : lista){
+             
+             modelo.addRow(new Object[] {c.getCodCita(), c.getPersona(), c.getCodRefuerzo(), c.getFechaHoraCita(), c.getCentroVacunacion(), c.getFechaHoraColoca(), c.getDosis(), c.isCitaConcretada(), c.isCitaCancelada()});
+             
+         }
+  
+     }
+      
+      private void cargarCitasVencidas(){
+         
+         List <CitaVacunacion> lista = cvData.listarCitasVencidas();
+         
+         for(CitaVacunacion c : lista){
+             
+             modelo.addRow(new Object[] {c.getCodCita(), c.getPersona(), c.getCodRefuerzo(), c.getFechaHoraCita(), c.getCentroVacunacion(), c.getFechaHoraColoca(), c.getDosis(), c.isCitaConcretada(), c.isCitaCancelada()});
+             
+         }
+  
+     }
+
+
+
 }
