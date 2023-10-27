@@ -19,14 +19,14 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>mail</groupId>
-            <artifactId>email</artifactId>
-            <version>1.6</version>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javax</artifactId>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
             <version>1.6</version>
             <type>jar</type>
         </dependency>

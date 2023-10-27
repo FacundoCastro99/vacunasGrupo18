@@ -122,6 +122,32 @@ public class VacunaData {
         return vacu;
                   
     }
+     
+     public void vacunaColocada(int nSerie){
+        
+        String sql = "UPDATE vacuna SET colocada = 0 WHERE nroSerieDosis = ?";
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, nSerie);
+            int exito = ps.executeUpdate();
+            
+            if(exito == 1){
+                
+                JOptionPane.showMessageDialog(null, "Vacuna colocada");
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+
+    }
+     
+     
 
 }
     

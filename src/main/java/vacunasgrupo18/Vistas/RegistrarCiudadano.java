@@ -63,6 +63,12 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
 
         jLabel2.setText("DNI:");
 
+        jtdni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtdniKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Email:");
 
         jLabel4.setText("Celular:");
@@ -213,7 +219,7 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
             String PatologiaNo = "Ninguna";
 
         
-        if(nombre.isEmpty()){
+        if(nombre.isEmpty() || trabajo.isEmpty()){
             
             JOptionPane.showMessageDialog(this, "Complete los campos obligatorios");
             return;
@@ -318,8 +324,9 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
             } else{
                 
                 jrSi.setSelected(true);
-                
+                jtEpatologia.setEnabled(true);
                  jtEpatologia.setText(cActual.getPatologia());
+                 
                 
             }
             
@@ -327,6 +334,15 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jtdniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtdniKeyTyped
+      
+        if(jtdni.getText().length() >= 8)
+    {
+        evt.consume();
+    }
+        
+    }//GEN-LAST:event_jtdniKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

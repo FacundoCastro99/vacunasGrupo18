@@ -16,7 +16,7 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setSize(958, 520);
+        this.setSize(958, 600);
         
     }
 
@@ -35,14 +35,17 @@ public class Menu extends javax.swing.JFrame {
         laboYVacu = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         salir = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         escritorio = new javax.swing.JDesktopPane();
         jLabel3 = new javax.swing.JLabel();
         laboYVacu1 = new javax.swing.JButton();
+        jbGCitas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         panel2.setBackground(new java.awt.Color(0, 51, 255));
+        panel2.setPreferredSize(new java.awt.Dimension(952, 600));
 
         registrarCiudadano.setBackground(new java.awt.Color(0, 51, 204));
         registrarCiudadano.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -85,7 +88,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vacunasgrupo18/Recursos/pandemiaImagen2.jpg"))); // NOI18N
+        jButton1.setBackground(new java.awt.Color(0, 0, 255));
+        jButton1.setText("Gestion Ciudadanos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jLabel3.setPreferredSize(new java.awt.Dimension(756, 473));
 
         escritorio.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -98,7 +108,7 @@ public class Menu extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         laboYVacu1.setBackground(new java.awt.Color(0, 51, 204));
@@ -112,25 +122,32 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jbGCitas.setText("Gestion de Citas");
+        jbGCitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGCitasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(laboYVacu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(registrarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(registrarCiudadano)
-                            .addComponent(laboYVacu, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(laboYVacu1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)))
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(laboYVacu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(registrarCita, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(registrarCiudadano, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jbGCitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panel2Layout.setVerticalGroup(
@@ -138,7 +155,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(panel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(registrarCiudadano)
                 .addGap(18, 18, 18)
                 .addComponent(registrarCita)
@@ -148,7 +165,11 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(laboYVacu1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(salir)
-                .addGap(18, 18, 18))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jbGCitas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(escritorio)
         );
 
@@ -156,14 +177,11 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(panel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -213,6 +231,22 @@ public class Menu extends javax.swing.JFrame {
         escritorio.moveToFront(AgreVac);
     }//GEN-LAST:event_laboYVacu1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        escritorio.repaint();
+        GestionCiudadanos gc = new GestionCiudadanos();
+        gc.setVisible(true);
+        escritorio.add(gc);
+        escritorio.moveToFront(gc);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jbGCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGCitasActionPerformed
+        escritorio.repaint();
+        GestionCitas gc = new GestionCitas();
+        gc.setVisible(true);
+        escritorio.add(gc);
+        escritorio.moveToFront(gc);
+    }//GEN-LAST:event_jbGCitasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -250,8 +284,10 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jbGCitas;
     private javax.swing.JButton laboYVacu;
     private javax.swing.JButton laboYVacu1;
     private java.awt.Panel panel2;
