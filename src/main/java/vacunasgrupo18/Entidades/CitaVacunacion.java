@@ -2,25 +2,27 @@
 package vacunasgrupo18.Entidades;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class CitaVacunacion {
     
     private int codCita;
    private Ciudadano persona;
+   private Ciudadano email;
    private int codRefuerzo;
-   private LocalDate fechaHoraCita;
+   private Timestamp fechaHoraCita;
    private String centroVacunacion;
-   private LocalDate fechaHoraColoca;
-   private Vacuna dosis;
+   private Timestamp fechaHoraColoca;
+   private double dosis;
+   private boolean citaConcretada;
 
     public CitaVacunacion() {
     }
-    
-    
 
-    public CitaVacunacion(Ciudadano persona, int codRefuerzo, LocalDate fechaHoraCita, String centroVacunacion, LocalDate fechaHoraColoca, Vacuna dosis) {
+    public CitaVacunacion(Ciudadano persona, int codRefuerzo, Timestamp fechaHoraCita, String centroVacunacion, Timestamp fechaHoraColoca, double dosis) {
         this.persona = persona;
         this.codRefuerzo = codRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
@@ -31,7 +33,7 @@ public class CitaVacunacion {
     
     
 
-    public CitaVacunacion(int codCita, Ciudadano persona, int codRefuerzo, LocalDate fechaHoraCita, String centroVacunacion, LocalDate fechaHoraColoca, Vacuna dosis) {
+    public CitaVacunacion(int codCita, Ciudadano persona, int codRefuerzo, Timestamp fechaHoraCita, String centroVacunacion, Timestamp fechaHoraColoca, double dosis) {
         this.codCita = codCita;
         this.persona = persona;
         this.codRefuerzo = codRefuerzo;
@@ -41,8 +43,9 @@ public class CitaVacunacion {
         this.dosis = dosis;
     }
 
-    public CitaVacunacion(Ciudadano persona, int codRefuerzo, LocalDate fechaHoraCita, String centroVacunacion) {
+    public CitaVacunacion(Ciudadano persona, Ciudadano email, int codRefuerzo, Timestamp fechaHoraCita, String centroVacunacion) {
         this.persona = persona;
+        this.email = email;
         this.codRefuerzo = codRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
         this.centroVacunacion = centroVacunacion;
@@ -74,11 +77,11 @@ public class CitaVacunacion {
         this.codRefuerzo = codRefuerzo;
     }
 
-    public LocalDate getFechaHoraCita() {
+    public Timestamp getFechaHoraCita() {
         return fechaHoraCita;
     }
 
-    public void setFechaHoraCita(LocalDate fechaHoraCita) {
+    public void setFechaHoraCita(Timestamp fechaHoraCita) {
         this.fechaHoraCita = fechaHoraCita;
     }
 
@@ -90,21 +93,39 @@ public class CitaVacunacion {
         this.centroVacunacion = centroVacunacion;
     }
 
-    public LocalDate getFechaHoraColoca() {
+    public Timestamp getFechaHoraColoca() {
         return fechaHoraColoca;
     }
 
-    public void setFechaHoraColoca(LocalDate fechaHoraColoca) {
+    public void setFechaHoraColoca(Timestamp fechaHoraColoca) {
         this.fechaHoraColoca = fechaHoraColoca;
     }
 
-    public Vacuna getDosis() {
+    public double getDosis() {
         return dosis;
     }
 
-    public void setDosis(Vacuna dosis) {
+    public void setDosis(double dosis) {
         this.dosis = dosis;
     }
+
+    public Ciudadano getEmail() {
+        return email;
+    }
+
+    public void setEmail(Ciudadano email) {
+        this.email = email;
+    }
+
+    public boolean isCitaConcretada() {
+        return citaConcretada;
+    }
+
+    public void setCitaConcretada(boolean citaConcretada) {
+        this.citaConcretada = citaConcretada;
+    }
+    
+    
 
     @Override
     public String toString() {

@@ -4,11 +4,20 @@
  */
 package vacunasgrupo18.Vistas;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +29,7 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import vacunasgrupo18.AccesoADatos.CitaVacunacionData;
 import vacunasgrupo18.AccesoADatos.CiudadanoData;
+import vacunasgrupo18.AccesoADatos.Conexion;
 import vacunasgrupo18.Entidades.CitaVacunacion;
 import vacunasgrupo18.Entidades.Ciudadano;
 
@@ -28,16 +38,18 @@ import vacunasgrupo18.Entidades.Ciudadano;
  * @author lucia
  */
 public class RegistrarCita extends javax.swing.JInternalFrame {
-
+    
+    private Connection con = null;
     private CitaVacunacionData citaData;
     CitaVacunacion citaActual = null;
     CiudadanoData ciudaData = new CiudadanoData();
-    Ciudadano ciudaActual = new Ciudadano();
+    private List <String> listaCorreos;
     
     public RegistrarCita() {
         initComponents();
-        setBounds(135, 5, 425, 425);
+        setBounds(135, 5, 425, 540);
         
+
         citaData = new CitaVacunacionData();
         
     }
@@ -61,8 +73,17 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jtCentro = new javax.swing.JTextField();
-        jcRefuerzo = new javax.swing.JComboBox<>();
         jbBuscar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jtNombre = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jtHora = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jtCod = new javax.swing.JTextField();
+        jtCodR = new javax.swing.JTextField();
+        jchPostergar = new javax.swing.JCheckBox();
+        jtSemanas = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(51, 153, 255));
         setBorder(null);
@@ -70,6 +91,7 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Registrar Cita");
+        setPreferredSize(new java.awt.Dimension(427, 550));
 
         jLabel1.setText("DNI:");
 
@@ -81,9 +103,9 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel5.setText("Fecha y hora de la cita:");
+        jLabel5.setText("Fecha:");
 
-        jbRegistrar.setText("Registrar");
+        jbRegistrar.setText("Registrar/Modificar");
         jbRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRegistrarActionPerformed(evt);
@@ -91,6 +113,7 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
         });
 
         jbPostergar.setText("Postergar");
+        jbPostergar.setEnabled(false);
         jbPostergar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbPostergarActionPerformed(evt);
@@ -98,10 +121,13 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
         });
 
         jbNuevo.setText("Nueva cita");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Centro de Vacunacion:");
-
-        jcRefuerzo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3" }));
 
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -110,73 +136,150 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setText("Nombre y Apellido:");
+
+        jLabel6.setText("Hora (HH:mm):");
+
+        jLabel7.setText("Codigo de Cita:");
+
+        jchPostergar.setText("¿Desea postergar todas las citas?");
+        jchPostergar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jchPostergarActionPerformed(evt);
+            }
+        });
+
+        jtSemanas.setEnabled(false);
+
+        jLabel8.setText("¿Cuantas semanas?");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(29, 29, 29)
-                                .addComponent(jdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jbBuscar))
-                                    .addComponent(jtCentro, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcRefuerzo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jbRegistrar, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(40, 40, 40))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(115, 115, 115)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtCentro, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtCodR, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jchPostergar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbPostergar))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addGap(67, 67, 67)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jbBuscar)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jtDni)))
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel6)
                         .addComponent(jbNuevo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbPostergar)
-                        .addGap(64, 64, 64)
-                        .addComponent(jbRegistrar)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jtSemanas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jbBuscar))
-                .addGap(26, 26, 26)
+                    .addComponent(jLabel1))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jtCentro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jcRefuerzo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(jtCodR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(jdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jdFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                    .addComponent(jtHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbRegistrar)
-                    .addComponent(jbPostergar)
                     .addComponent(jbNuevo))
-                .addGap(16, 16, 16))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jchPostergar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jbPostergar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtSemanas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbPostergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPostergarActionPerformed
-        // TODO add your handling code here:
+         
+        try{
+            
+            Integer semanas = Integer.parseInt(jtSemanas.getText());
+            
+            
+            postergarCitas(semanas);
+            listaCorreos = listarPostergaciones();
+            MandarMailPostergacion(listaCorreos);
+            
+        }catch(NumberFormatException ex){
+            
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero de DNI valido");
+            ex.printStackTrace();
+            
+        }
+        
+        jchPostergar.setSelected(false);
+        jtSemanas.setText("");
+        jtSemanas.setEnabled(false);
+        jbPostergar.setEnabled(false);
+ 
+         
+        
     }//GEN-LAST:event_jbPostergarActionPerformed
 
     private void jtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDniKeyTyped
@@ -193,34 +296,41 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
         try{
             
             Integer dni = Integer.parseInt(jtDni.getText());
-            Ciudadano datosCiuda = (Ciudadano) ciudaData.buscarCiudadanoPorDni(dni);
             String centro = jtCentro.getText();
-            Integer codR = Integer.parseInt(jcRefuerzo.getSelectedItem().toString());
-            Calendar cal = jdFecha.getCalendar();
-            Date input = cal.getTime();
-            LocalDate fecha = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
-        if(centro.isEmpty() || codR.equals(0)){
+            
+            if(centro.isEmpty() || jtCodR.getText().isEmpty() || jtNombre.getText().isEmpty() || jtHora.getText().isEmpty()){
             
             JOptionPane.showMessageDialog(this, "Complete los campos obligatorios");
             return;
    
         }
+            
+            Integer codR = Integer.parseInt(jtCodR.getText());
+            Ciudadano datosCiuda = (Ciudadano) ciudaData.buscarCiudadanoPorDni(dni);
+            Calendar cal = jdFecha.getCalendar();
+            Date input = cal.getTime();
+            LocalDate fecha = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalTime hora = LocalTime.parse(jtHora.getText());
+            LocalDateTime fechaHora = LocalDateTime.of(fecha, hora);
+            Timestamp fechaHoraCita = Timestamp.valueOf(fechaHora);
+        
+        
         
         if(citaActual == null){
             
-            citaActual = new CitaVacunacion(datosCiuda, codR, fecha, centro);
+            citaActual = new CitaVacunacion(datosCiuda, datosCiuda,  codR, fechaHoraCita, centro);
             citaData.guardarCita(citaActual);
-            MandarMail(datosCiuda.getEmail());
+            MandarMailPrincipal(datosCiuda.getEmail());
             
             
         } else {
             
             citaActual.setPersona(datosCiuda);
             citaActual.setCodRefuerzo(codR);
-            citaActual.setFechaHoraCita(fecha);
+            citaActual.setFechaHoraCita(fechaHoraCita);
             citaActual.setCentroVacunacion(centro);
             citaData.modificarCita(citaActual);
+            MandarMailModificado(datosCiuda.getEmail());
             
         }
         
@@ -228,7 +338,7 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
 
         }catch(NumberFormatException ex){
             
-            JOptionPane.showMessageDialog(this, "Debe ingresar un numero de serie valido");
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero de DNI valido");
             ex.printStackTrace();
             
         }
@@ -237,26 +347,77 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         
+        Integer cod = Integer.parseInt(jtCod.getText());
+        
+        citaActual = citaData.buscarCitaPorCod(cod);
+        
+        if(citaActual != null){
+            
+            jtDni.setText(citaActual.getPersona().getDni() + "");
+            jtNombre.setText(citaActual.getPersona().getNombreCompleto());
+            jtCentro.setText(citaActual.getCentroVacunacion());
+            jtCodR.setText(citaActual.getCodRefuerzo() + "");
+            jdFecha.setDate(citaActual.getFechaHoraCita());
+            Date date = new Date(citaActual.getFechaHoraCita().getTime());
+            SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+            String hora = formatoHora.format(date);
+            jtHora.setText(hora);
+            
+        }
         
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        
+        limpiarCampos();
+        citaActual = null;
+        
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jchPostergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchPostergarActionPerformed
+        
+        if(jchPostergar.isSelected()){
+            
+            jtSemanas.setEnabled(true);
+            jbPostergar.setEnabled(true);
+            
+            
+        } else{
+            
+             jbPostergar.setEnabled(false);
+             jtSemanas.setEnabled(true);
+            
+        }
+        
+        
+    }//GEN-LAST:event_jchPostergarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbPostergar;
     private javax.swing.JButton jbRegistrar;
-    private javax.swing.JComboBox<String> jcRefuerzo;
+    private javax.swing.JCheckBox jchPostergar;
     private com.toedter.calendar.JDateChooser jdFecha;
     private javax.swing.JTextField jtCentro;
+    private javax.swing.JTextField jtCod;
+    private javax.swing.JTextField jtCodR;
     private javax.swing.JTextField jtDni;
+    private javax.swing.JTextField jtHora;
+    private javax.swing.JTextField jtNombre;
+    private javax.swing.JTextField jtSemanas;
     // End of variables declaration//GEN-END:variables
 
- public void MandarMail(String correo){
+ public void MandarMailPrincipal(String correo){
      
      Calendar cal = jdFecha.getCalendar();
      Date input = cal.getTime();
@@ -264,7 +425,31 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
      
     String correoEnvia = "123.roberto.barrios@gmail.com";
     String contraseña = "ztsp ahrl fvlk exob";
-    String mensaje = "DNI: " + jtDni.getText() + ", Codigo de refuerzo: " + jcRefuerzo.getSelectedItem().toString() + ", Fecha: " + fecha + ", Centro de Vacunación: " + jtCentro.getText();
+    String mensaje = "Estimado " + jtNombre.getText() + ",\n" +
+"\n" +
+"Espero que este mensaje te encuentre bien. Nos complace confirmar tu cita de vacunación para recibir la vacuna contra el COVID-19 en el contro de vacunacion" + jtCentro.getText() + ". Tu seguridad y bienestar son nuestra principal prioridad, y estamos comprometidos a brindarte la mejor atención posible.\n" +
+"\n" +
+"Detalles de la cita:\n" +
+"- Nombre del Ciudadano: " + jtNombre.getText() + "\n" +
+"- Fecha de la cita: " + fecha + "\n" +
+"- Hora de la cita: " + jtHora.getText() + "\n" +
+"- Centro de Vacunación: " + jtCentro.getText() + "\n" +
+"\n" +
+"Por favor, asegúrate de llegar al centro de vacunación puntualmente. Recomendamos que llegues unos minutos antes de la hora de tu cita para facilitar el proceso de registro y para garantizar que todo transcurra de manera eficiente.\n" +
+"\n" +
+"Para tu seguridad y la de los demás, te pedimos que sigas las siguientes pautas:\n" +
+"- Usa una mascarilla facial en todo momento.\n" +
+"- Mantén una distancia social de al menos 2 metros de otras personas.\n" +
+"- Lava tus manos con frecuencia y utiliza desinfectante de manos.\n" +
+"- Si tienes síntomas de COVID-19 o has estado en contacto con una persona diagnosticada con COVID-19 en los últimos 14 días, por favor comunícate con nosotros para reprogramar tu cita.\n" +
+"\n" +
+"Recibir la vacuna es un paso importante para proteger tu salud y contribuir a la lucha contra la pandemia. Si tienes alguna pregunta o necesitas más información, no dudes en comunicarte con nuestro equipo de atención al cliente al 011 4210-9000 o por correo electrónico a comunicacioninteligente@hospitalelcruce.org.\n" +
+"\n" +
+"Agradecemos tu compromiso con la salud pública y tu disposición para vacunarte. Juntos, superaremos esta crisis. Esperamos verte en la fecha de tu cita.\n" +
+"\n" +
+"Atentamente,\n" +
+"\n" +
+"El ministerio de Salud de la Nación\n";
     
     Properties objetoPEC = new Properties();// se crea el objeto objetoPEC del tipo Properties (PEC para envio de correo)
     
@@ -301,6 +486,215 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
         
         
     }
+ 
+ public void MandarMailModificado(String correo){
+     
+     Calendar cal = jdFecha.getCalendar();
+     Date input = cal.getTime();
+     LocalDate fecha = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+     
+    String correoEnvia = "123.roberto.barrios@gmail.com";
+    String contraseña = "ztsp ahrl fvlk exob";
+    String mensaje = "Estimado " + jtNombre.getText() + ",\n" +
+"\n" +
+"Espero que este mensaje te encuentre bien. Nos gustaría informarte que ha habido una modificación en tu cita de vacunación para recibir la vacuna contra el COVID-19 en el centro de vacunación" + jtCentro.getText() + ". Lamentamos los errores y agradecemos tu comprensión en este proceso. Tu seguridad y bienestar siguen siendo nuestra principal prioridad, y estamos comprometidos a brindarte la mejor atención posible.\n" +
+"\n" +
+"A continuación, te proporcionamos los detalles actualizados de tu cita:\n" +
+"- Nombre del Ciudadano: " + jtNombre.getText() + "\n" +
+"- Nueva Fecha de la cita: " + fecha + "\n" +
+"- Hora de la cita: " + jtHora.getText() + "\n" +
+"- Centro de Vacunación: " + jtCentro.getText() + "\n" +
+"\n" +
+"Por favor, asegúrate de llegar al centro de vacunación puntualmente en la nueva fecha programada. Recomendamos que llegues unos minutos antes de la hora de tu cita para facilitar el proceso de registro y garantizar que todo transcurra de manera eficiente.\n" +
+"\n" +
+"Para tu seguridad y la de los demás, te pedimos que sigas las siguientes pautas:\n" +
+"- Usa una mascarilla facial en todo momento.\n" +
+"- Mantén una distancia social de al menos 2 metros de otras personas.\n" +
+"- Lava tus manos con frecuencia y utiliza desinfectante de manos.\n" +
+"- Si tienes síntomas de COVID-19 o has estado en contacto con una persona diagnosticada con COVID-19 en los últimos 14 días, por favor comunícate con nosotros para reprogramar tu cita.\n" +
+"\n" +
+"Recibir la vacuna es un paso importante para proteger tu salud y contribuir a la lucha contra la pandemia. Si tienes alguna pregunta o necesitas más información, no dudes en comunicarte con nuestro equipo de atención al cliente al 011 4210-9000 o por correo electrónico a comunicacioninteligente@hospitalelcruce.org.\n" +
+"\n" +
+"Agradecemos tu compromiso con la salud pública y tu disposición para vacunarte. Juntos, superaremos esta crisis. Esperamos verte en la nueva fecha de tu cita.\n" +
+"\n" +
+"Atentamente,\n" +
+"\n" +
+"El Ministerio de Salud de la Nación";
+    
+    Properties objetoPEC = new Properties();// se crea el objeto objetoPEC del tipo Properties (PEC para envio de correo)
+    
+    objetoPEC.put("mail.smtp.host","smtp.gmail.com");
+    objetoPEC.setProperty("mail.smtp.starttls.enable","true");
+    objetoPEC.put("mail.smtp.port","587");
+    objetoPEC.setProperty("mail.smtp.port","587");
+    objetoPEC.put("mail.smtp.user",correoEnvia);
+    objetoPEC.setProperty("mail.smtp.auth", "true");
+    
+        //crea un objeto sesion
+        Session sesion = Session.getDefaultInstance(objetoPEC);
+        // se crea otro objeto mail
+        MimeMessage mail = new MimeMessage(sesion);
+        // creo otro objeto mail  y llama al otro objeto sesion
+    
+            try {
+                mail.setFrom(new InternetAddress(correoEnvia));
+                mail.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
+                mail.setSubject("Turno Confirmado Vacunacion: COVID");
+                mail.setText(mensaje);
+                
+                Transport transporte =  sesion.getTransport("smtp");
+                //creo otro objeto transporte
+                transporte.connect(correoEnvia,contraseña);
+                transporte.sendMessage(mail,mail.getRecipients(Message.RecipientType.TO));
+                transporte.close();
+                
+                JOptionPane.showMessageDialog(null,"El correo se envio CORRECTAMENTE");
+                      
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null,"Error de envio de CORREO...\n" + ex);
+    }
+        
+        
+    }
+ 
+ public void MandarMailPostergacion(List<String> correos){
+     
+    String correoEnvia = "123.roberto.barrios@gmail.com";
+    String contraseña = "ztsp ahrl fvlk exob";
+    
+    
+    Properties objetoPEC = new Properties();// se crea el objeto objetoPEC del tipo Properties (PEC para envio de correo)
+    
+    objetoPEC.put("mail.smtp.host","smtp.gmail.com");
+    objetoPEC.setProperty("mail.smtp.starttls.enable","true");
+    objetoPEC.put("mail.smtp.port","587");
+    objetoPEC.setProperty("mail.smtp.port","587");
+    objetoPEC.put("mail.smtp.user",correoEnvia);
+    objetoPEC.setProperty("mail.smtp.auth", "true");
+    
+        //crea un objeto sesion
+        Session sesion = Session.getDefaultInstance(objetoPEC);
+        // se crea otro objeto mail
+        MimeMessage mail = new MimeMessage(sesion);
+        // creo otro objeto mail  y llama al otro objeto sesion
+        
+        for (String correo : correos) {
+    
+            try {
+                
+                String mensaje = "Estimado,\n" +
+"\n" +
+"Por favor, asegúrate de llegar al centro de vacunación puntualmente en la nueva fecha programada. Recomendamos que llegues unos minutos antes de la hora de tu cita para facilitar el proceso de registro y garantizar que todo transcurra de manera eficiente.\n" +
+"\n" +
+"Para tu seguridad y la de los demás, te pedimos que sigas las siguientes pautas:\n" +
+"- Usa una mascarilla facial en todo momento.\n" +
+"- Mantén una distancia social de al menos 2 metros de otras personas.\n" +
+"- Lava tus manos con frecuencia y utiliza desinfectante de manos.\n" +
+"- Si tienes síntomas de COVID-19 o has estado en contacto con una persona diagnosticada con COVID-19 en los últimos 14 días, por favor comunícate con nosotros para reprogramar tu cita.\n" +
+"\n" +
+"Recibir la vacuna es un paso importante para proteger tu salud y contribuir a la lucha contra la pandemia. Si tienes alguna pregunta o necesitas más información, no dudes en comunicarte con nuestro equipo de atención al cliente al 011 4210-9000 o por correo electrónico a comunicacioninteligente@hospitalelcruce.org.\n" +
+"\n" +
+"Agradecemos tu compromiso con la salud pública y tu disposición para vacunarte. Juntos, superaremos esta crisis. Esperamos verte en la nueva fecha de tu cita.\n" +
+"\n" +
+"Atentamente,\n" +
+"\n" +
+"El Ministerio de Salud de la Nación";
+                
+                mail.setFrom(new InternetAddress(correoEnvia));
+                mail.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
+                mail.setSubject("Postergacion de la Cita de Vacunacion: COVID");
+                mail.setText(mensaje);
+                
+                Transport transporte =  sesion.getTransport("smtp");
+                //creo otro objeto transporte
+                transporte.connect(correoEnvia,contraseña);
+                transporte.sendMessage(mail,mail.getRecipients(Message.RecipientType.TO));
+                transporte.close();
+                
+                JOptionPane.showMessageDialog(null,"los correos se enviaron CORRECTAMENTE");
+                      
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null,"Error de envio de CORREO...\n" + ex);
+    }
+            
+        }
+        
+        
+    }
+ 
+ public void postergarCitas(int semanas){
+        
+        con = Conexion.getConexion();
+        
+        String sql = "UPDATE citavacunacion SET fechaHoraCita = DATE_ADD (fechaHoraCita, INTERVAL ? WEEK) WHERE citaConcretada = 0";
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, semanas);
+            int exito = ps.executeUpdate();
+            
+            if(exito == 1){
+                
+                JOptionPane.showMessageDialog(null, "Citas postergadas");
+                
+                
+            }
+           
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+    }
+ 
+ public List<String> listarPostergaciones(){
+        
+        con = Conexion.getConexion();
+     
+        String sql = "SELECT email FROM citavacunacion WHERE citaConcretada = 0";
+        
+        ArrayList<String> postergaciones = new ArrayList<>();
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                
+                String email = rs.getString("email");
+
+                postergaciones.add(email);
+                
+            }
+            
+
+            ps.close();
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+            
+        }
+        
+        return postergaciones;
+                
+    }
+ 
+ public void limpiarCampos(){
+        
+        jtDni.setText("");
+        jtNombre.setText("");
+        jtCentro.setText("");
+        jtCodR.setText("");
+        jdFecha.setCalendar(null);
+        jtHora.setText("");
+        
+    }
 
 
+ 
 }

@@ -3,6 +3,7 @@ vacunasgrupo18\Vistas\AgregarLaboratorio$1.class
 vacunasgrupo18\Vistas\AgregarLaboratorio.class
 vacunasgrupo18\Vistas\RegistrarCita$1.class
 vacunasgrupo18\Vistas\RegistrarCiudadano$4.class
+vacunasgrupo18\Vistas\RegistrarCiudadano$6.class
 vacunasgrupo18\Entidades\Laboratorio.class
 vacunasgrupo18\Vistas\AgregarVacunas$2.class
 vacunasgrupo18\Vistas\RegistrarCiudadano.class
@@ -12,6 +13,7 @@ vacunasgrupo18\Vistas\RegistrarCiudadano$2.class
 vacunasgrupo18\Vistas\Menu$4.class
 vacunasgrupo18\Vistas\Menu$3.class
 vacunasgrupo18\AccesoADatos\CiudadanoData.class
+vacunasgrupo18\Vistas\RegistrarCita$4.class
 vacunasgrupo18\Vistas\AgregarLaboratorio$3.class
 vacunasgrupo18\Vistas\RegistrarCita.class
 vacunasgrupo18\VacunasGrupo18.class
@@ -29,6 +31,7 @@ vacunasgrupo18\Vistas\RegistrarCita$2.class
 vacunasgrupo18\Vistas\AgregarVacunas$3.class
 vacunasgrupo18\Vistas\RegistrarCita$3.class
 vacunasgrupo18\Vistas\Menu$5.class
+vacunasgrupo18\Vistas\RegistrarCita$5.class
 vacunasgrupo18\Vistas\Menu$2.class
 vacunasgrupo18\Vistas\RegistrarCiudadano$1.class
 vacunasgrupo18\AccesoADatos\Conexion.class

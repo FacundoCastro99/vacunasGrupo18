@@ -19,7 +19,19 @@ public class VacunasGrupo18 {
         
         //Ciudadano pedro = new Ciudadano(42547958, "Pedro Sanchez", "pedro123@gmail.com", "2984145677", "diabetes", "Salud");
         
-        //CiudadanoData persona = new CiudadanoData();
+       /* CiudadanoData persona = new CiudadanoData();
+        
+        
+        
+        Ciudadano ciuEncontrado = persona.buscarCiudadanoPorNombre("Martinez Mariano");;
+        
+        if(ciuEncontrado!=null){
+            
+            System.out.println("dni " + ciuEncontrado.getDni());
+            System.out.println("nombreCompleto " + ciuEncontrado.getNombreCompleto());
+            
+        }*/
+        
         
 //        persona.guardarCiudadano(pedro);
 //        persona.modificarCiudadano(pedro);
@@ -57,6 +69,20 @@ public class VacunasGrupo18 {
          
          //citaD.guardarCita(cita);
          //citaD.modificarCita(cita);
-         citaD.eliminarCita(6);
+         //citaD.eliminarCita(6);
+         
+         
+         CitaVacunacion citaEncontrado = citaD.buscarCitaPorCod(28);
+        
+        if(citaEncontrado!=null){
+            
+            System.out.println("nombre " + citaEncontrado.getPersona().getNombreCompleto());
+            System.out.println("codigo de refuerzo " + citaEncontrado.getCodRefuerzo());
+            System.out.println("fecha " + citaEncontrado.getFechaHoraCita());
+            System.out.println("Centro de vacunacion " + citaEncontrado.getCentroVacunacion());
+            
+            
+        }
+         
 }
 }
