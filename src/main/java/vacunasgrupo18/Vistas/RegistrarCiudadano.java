@@ -324,8 +324,9 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
             } else{
                 
                 jrSi.setSelected(true);
-                
+                jtEpatologia.setEnabled(true);
                  jtEpatologia.setText(cActual.getPatologia());
+                 
                 
             }
             

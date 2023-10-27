@@ -620,13 +620,13 @@ public class RegistrarCita extends javax.swing.JInternalFrame {
                 
                 String mensaje = "Estimado,\n" +
 "\n" +
-"Por favor, asegúrate de llegar al centro de vacunación puntualmente en la nueva fecha programada. Recomendamos que llegues unos minutos antes de la hora de tu cita para facilitar el proceso de registro y garantizar que todo transcurra de manera eficiente.\n" +
+"Lamentamos comunicarle que debido al faltante de vacunas, debimos postergar su cita. Le pedimos que se acerque al Centro de Vacunacion para darle los datos de su nueva cita\n" +
 "\n" +
 "Para tu seguridad y la de los demás, te pedimos que sigas las siguientes pautas:\n" +
 "- Usa una mascarilla facial en todo momento.\n" +
 "- Mantén una distancia social de al menos 2 metros de otras personas.\n" +
 "- Lava tus manos con frecuencia y utiliza desinfectante de manos.\n" +
-"- Si tienes síntomas de COVID-19 o has estado en contacto con una persona diagnosticada con COVID-19 en los últimos 14 días, por favor comunícate con nosotros para reprogramar tu cita.\n" +
+"- Si tienes síntomas de COVID-19 o has estado en contacto con una persona diagnosticada con COVID-19 en los últimos 14 días, por favor comunícate con nosotros.\n" +
 "\n" +
 "Recibir la vacuna es un paso importante para proteger tu salud y contribuir a la lucha contra la pandemia. Si tienes alguna pregunta o necesitas más información, no dudes en comunicarte con nuestro equipo de atención al cliente al 011 4210-9000 o por correo electrónico a comunicacioninteligente@hospitalelcruce.org.\n" +
 "\n" +
