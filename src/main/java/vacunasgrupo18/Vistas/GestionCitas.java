@@ -50,6 +50,7 @@ public class GestionCitas extends javax.swing.JInternalFrame {
         jrCitasCum = new javax.swing.JRadioButton();
         jrCitasCan = new javax.swing.JRadioButton();
 
+        setBackground(new java.awt.Color(153, 153, 255));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);

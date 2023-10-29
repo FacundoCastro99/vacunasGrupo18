@@ -53,11 +53,11 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 0, 0));
+        setBackground(new java.awt.Color(153, 153, 255));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Registo del Ciudadano");
+        setTitle("Registrar  Ciudadano");
 
         jLabel1.setText("Nombre y Apellido:");
 
@@ -75,6 +75,7 @@ public class RegistrarCiudadano extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Patología:");
 
+        jLabel6.setBackground(new java.awt.Color(153, 153, 255));
         jLabel6.setText("Ambito de Trabajo:");
 
         jctrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Salud", "Educación", "Fuerzas Armadas", "Otros" }));

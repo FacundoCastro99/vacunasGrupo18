@@ -62,6 +62,7 @@ public class AgregarVacunas extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jcMarca = new javax.swing.JComboBox<>();
 
+        setBackground(new java.awt.Color(153, 153, 255));
         setClosable(true);
         setResizable(true);
 

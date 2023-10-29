@@ -45,6 +45,7 @@ public class GestionCiudadanos extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbCargar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(153, 153, 255));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -103,7 +104,7 @@ public class GestionCiudadanos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbEliminar)
                     .addComponent(jbCargar))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

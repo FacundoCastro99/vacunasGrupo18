@@ -49,6 +49,7 @@ public class AplicarVacuna extends javax.swing.JInternalFrame {
         jtDosis = new javax.swing.JTextField();
         jblimpiar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(153, 153, 255));
         setClosable(true);
 
         jLabel1.setText("Nro de Serie");

@@ -46,6 +46,7 @@ public class AgregarLaboratorio extends javax.swing.JInternalFrame {
         jblimpiar = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(153, 153, 255));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
