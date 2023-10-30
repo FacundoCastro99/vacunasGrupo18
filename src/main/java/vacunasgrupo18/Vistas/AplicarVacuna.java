@@ -45,8 +45,6 @@ public class AplicarVacuna extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jtNroSerie = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jtDosis = new javax.swing.JTextField();
         jblimpiar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(153, 153, 255));
@@ -67,8 +65,6 @@ public class AplicarVacuna extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Dosis");
-
         jblimpiar.setText("Nuevo");
         jblimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,14 +80,12 @@ public class AplicarVacuna extends javax.swing.JInternalFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jblimpiar)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jtDosis, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(jtNroSerie)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtNroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -102,11 +96,7 @@ public class AplicarVacuna extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtNroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jtDosis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jblimpiar))
@@ -145,11 +135,13 @@ public class AplicarVacuna extends javax.swing.JInternalFrame {
             
         Integer numSerie = Integer.parseInt(jtNroSerie.getText());
         vacActual = vacData.buscarVacunaPorSerie(numSerie);
-        vacActual.setColocada(false);
+        vacActual.setColocada(true);
+        
+        
         if(vacActual == null){
             
-            vacActual = new Vacuna(numSerie, vacActual.getLabMarca(),vacActual.getMedida(),vacActual.getFechaCaduca(),vacActual.isColocada());
-            vacData.guardarVacuna(vacActual);
+            vacActual = new Vacuna(numSerie, vacActual.getLabMarca(),vacActual.getMedida(),vacActual.getFechaCaduca(),true);
+            vacData.modificarVacuna(vacActual);
             
         } else {
             
@@ -170,24 +162,49 @@ public class AplicarVacuna extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jtNroSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNroSerieActionPerformed
+        try{
+            
+        Integer numSerie = Integer.parseInt(jtNroSerie.getText());
+        vacActual = vacData.buscarVacunaPorSerie(numSerie);
+        vacActual.setColocada(true);
         
+        
+        if(vacActual == null){
+            
+            vacActual = new Vacuna(numSerie, vacActual.getLabMarca(),vacActual.getMedida(),vacActual.getFechaCaduca(),vacActual.isColocada());
+            vacData.modificarVacuna(vacActual);
+            
+        } else {
+            
+            vacActual.setNroSerieDosis(numSerie);
+            vacData.modificarVacuna(vacActual);
+            
+        }
+           JOptionPane.showMessageDialog(null, "Vacuna Aplicada");
+
+        
+        } catch(NumberFormatException ex){
+            
+            JOptionPane.showMessageDialog(this, "Debe ingresar un Numero de serie Valido");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AplicarVacuna.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         
         
     }//GEN-LAST:event_jtNroSerieActionPerformed
 public void limpiarCampos(){
         
         jtNroSerie.setText("");
-        jtDosis.setText("");
+        
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jblimpiar;
-    private javax.swing.JTextField jtDosis;
     private javax.swing.JTextField jtNroSerie;
     // End of variables declaration//GEN-END:variables
 }
