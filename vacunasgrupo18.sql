@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-10-2023 a las 02:29:46
+-- Tiempo de generación: 30-10-2023 a las 03:04:53
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `vacunasgrupo18`
 --
+CREATE DATABASE IF NOT EXISTS `vacunasgrupo18` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `vacunasgrupo18`;
 
 -- --------------------------------------------------------
 
@@ -29,15 +31,24 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `citavacunacion` (
   `codCita` int(11) NOT NULL,
-  `persona` int(11) NOT NULL,
+  `Persona` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
   `codRefuerzo` int(11) NOT NULL,
-  `fechaHoraCita` varchar(30) NOT NULL,
+  `fechaHoraCita` datetime NOT NULL,
   `centroVacunacion` varchar(30) NOT NULL,
   `fechaHoraColoca` datetime NOT NULL,
-  `dosis` int(11) NOT NULL,
+  `Dosis` double NOT NULL,
   `citaConcretada` tinyint(1) NOT NULL,
   `citaCancelada` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `citavacunacion`
+--
+
+INSERT INTO `citavacunacion` (`codCita`, `Persona`, `email`, `codRefuerzo`, `fechaHoraCita`, `centroVacunacion`, `fechaHoraColoca`, `Dosis`, `citaConcretada`, `citaCancelada`) VALUES
+(34, 'Castro Facundo', 'facundocastro671@gmail.com', 1, '2023-10-10 10:00:00', 'Lopez Lima', '0000-00-00 00:00:00', 0, 0, 1),
+(35, 'Dante Garcia', 'lean5891@gmail.com', 1, '2023-10-28 08:00:00', 'Lopez Lima', '0000-00-00 00:00:00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -59,9 +70,14 @@ CREATE TABLE `ciudadano` (
 --
 
 INSERT INTO `ciudadano` (`DNI`, `nombreCompleto`, `email`, `celular`, `patologia`, `ambitoTrabajo`) VALUES
-(23756847, 'Pedro Sanchez', 'pedrito@gmail.com', '2983456354', 'Ninguna', 'Otros'),
+(22456435, 'Castro Facundo', 'facundocastro671@gmail.com', '23145324', 'Ninguna', 'Otros'),
+(23435654, 'Maximiliano Romero', 'maxii2015@gmail.com', '123523512', 'Ninguna', 'Fuerzas Armadas'),
+(23453141, 'Dante Garcia', 'lean5891@gmail.com', '1231245', 'Ninguna', 'Otros'),
+(25456765, 'Martinez Mariano', 'martinez@gmail.com', '2984153546', 'Ninguna', 'Otros'),
+(27289654, 'Roberto Martinez', 'robertito@gmail.com', '2984567645', 'diabetes', 'Educación'),
 (42547958, 'Pedro Sanchez', 'pedro123@gmail.com', '2984145677', 'diabetes', 'Salud'),
-(43546456, 'Roberto Albornoz', 'roalbornoz@gmail.com', '2984567745', 'diabetes', 'Educación');
+(43534654, 'Roberto', '123.roberto.barrios@gmail.com', '12315213', 'Ninguna', 'Educación'),
+(43546456, 'Roberto Albornoz', 'roalbornoz@gmail.com', '2984567745', 'riñones', 'Educación');
 
 -- --------------------------------------------------------
 
@@ -70,7 +86,7 @@ INSERT INTO `ciudadano` (`DNI`, `nombreCompleto`, `email`, `celular`, `patologia
 --
 
 CREATE TABLE `laboratorio` (
-  `CUIT` int(11) NOT NULL,
+  `CUIT` bigint(11) NOT NULL,
   `nomLaboratorio` varchar(30) NOT NULL,
   `pais` varchar(30) NOT NULL,
   `domComercial` varchar(30) NOT NULL
@@ -81,12 +97,9 @@ CREATE TABLE `laboratorio` (
 --
 
 INSERT INTO `laboratorio` (`CUIT`, `nomLaboratorio`, `pais`, `domComercial`) VALUES
-(20124578, 'Pfizer', 'Alemania', 'Calle falsa 123'),
-(20456789, 'Moderna', 'Usa', 'calle falsa 126'),
-(20963571, 'Sputnik', 'Rusia', 'calle falsa 157'),
-(205689778, 'Covishield', 'India', 'Siempre vida 999'),
-(206356898, 'AstraZeneca', 'Reino Unido', 'Oxford 128'),
-(209987786, 'Sinopharm', 'China', 'Beijing 123');
+(20124578, 'Pfizer', 'Inglaterra', 'Calle falsa 1234'),
+(20345654214, 'AstraZeneca', 'Estados Unidos', 'Calle Falsa 2134'),
+(30452314354, 'Moderna', 'China', 'Calle Falsa 23455');
 
 -- --------------------------------------------------------
 
@@ -107,10 +120,10 @@ CREATE TABLE `vacuna` (
 --
 
 INSERT INTO `vacuna` (`nroSerieDosis`, `marca`, `medida`, `fechaCaduca`, `colocada`) VALUES
-(1236, 'Moderna', 0.3, '2024-10-17', 0),
-(1478, 'AstraZeneca', 0.3, '2023-10-27', 0),
-(2058, 'Pfizer', 0.3, '2023-12-14', 0),
-(5891, 'Sinopharm', 0.3, '2024-10-26', 0);
+(0, 'Pfizer', 0.3, '2022-12-23', 0),
+(12345, 'Pfizer', 0.5, '2023-10-06', 0),
+(123413, 'AstraZeneca', 0.3, '2023-10-05', 0),
+(124455, 'Moderna', 0.3, '2023-10-21', 0);
 
 --
 -- Índices para tablas volcadas
@@ -121,14 +134,17 @@ INSERT INTO `vacuna` (`nroSerieDosis`, `marca`, `medida`, `fechaCaduca`, `coloca
 --
 ALTER TABLE `citavacunacion`
   ADD PRIMARY KEY (`codCita`),
-  ADD UNIQUE KEY `DNI` (`persona`),
-  ADD KEY `dosis` (`dosis`);
+  ADD KEY `Persona` (`Persona`),
+  ADD KEY `email` (`email`);
 
 --
 -- Indices de la tabla `ciudadano`
 --
 ALTER TABLE `ciudadano`
-  ADD UNIQUE KEY `DNI` (`DNI`);
+  ADD UNIQUE KEY `DNI` (`DNI`),
+  ADD UNIQUE KEY `email_2` (`email`),
+  ADD KEY `nombreCompleto` (`nombreCompleto`),
+  ADD KEY `email` (`email`);
 
 --
 -- Indices de la tabla `laboratorio`
@@ -141,8 +157,8 @@ ALTER TABLE `laboratorio`
 -- Indices de la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
-  ADD PRIMARY KEY (`nroSerieDosis`),
-  ADD UNIQUE KEY `marca` (`marca`);
+  ADD UNIQUE KEY `nroSerieDosis` (`nroSerieDosis`),
+  ADD KEY `marca` (`marca`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -152,13 +168,7 @@ ALTER TABLE `vacuna`
 -- AUTO_INCREMENT de la tabla `citavacunacion`
 --
 ALTER TABLE `citavacunacion`
-  MODIFY `codCita` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `vacuna`
---
-ALTER TABLE `vacuna`
-  MODIFY `nroSerieDosis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5892;
+  MODIFY `codCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Restricciones para tablas volcadas
@@ -168,8 +178,8 @@ ALTER TABLE `vacuna`
 -- Filtros para la tabla `citavacunacion`
 --
 ALTER TABLE `citavacunacion`
-  ADD CONSTRAINT `citavacunacion_ibfk_1` FOREIGN KEY (`dosis`) REFERENCES `vacuna` (`nroSerieDosis`),
-  ADD CONSTRAINT `citavacunacion_ibfk_2` FOREIGN KEY (`persona`) REFERENCES `ciudadano` (`DNI`);
+  ADD CONSTRAINT `citavacunacion_ibfk_1` FOREIGN KEY (`Persona`) REFERENCES `ciudadano` (`nombreCompleto`),
+  ADD CONSTRAINT `citavacunacion_ibfk_2` FOREIGN KEY (`email`) REFERENCES `ciudadano` (`email`);
 
 --
 -- Filtros para la tabla `vacuna`
