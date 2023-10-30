@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2023 a las 23:27:24
+-- Tiempo de generación: 30-10-2023 a las 02:29:46
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `vacunasgrupo18`
 --
-CREATE DATABASE IF NOT EXISTS `vacunasgrupo18` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `vacunasgrupo18`;
 
 -- --------------------------------------------------------
 
@@ -36,7 +34,9 @@ CREATE TABLE `citavacunacion` (
   `fechaHoraCita` varchar(30) NOT NULL,
   `centroVacunacion` varchar(30) NOT NULL,
   `fechaHoraColoca` datetime NOT NULL,
-  `dosis` int(11) NOT NULL
+  `dosis` int(11) NOT NULL,
+  `citaConcretada` tinyint(1) NOT NULL,
+  `citaCancelada` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -81,7 +81,12 @@ CREATE TABLE `laboratorio` (
 --
 
 INSERT INTO `laboratorio` (`CUIT`, `nomLaboratorio`, `pais`, `domComercial`) VALUES
-(20124578, 'Pfizer', 'Alemania', 'Calle falsa 123');
+(20124578, 'Pfizer', 'Alemania', 'Calle falsa 123'),
+(20456789, 'Moderna', 'Usa', 'calle falsa 126'),
+(20963571, 'Sputnik', 'Rusia', 'calle falsa 157'),
+(205689778, 'Covishield', 'India', 'Siempre vida 999'),
+(206356898, 'AstraZeneca', 'Reino Unido', 'Oxford 128'),
+(209987786, 'Sinopharm', 'China', 'Beijing 123');
 
 -- --------------------------------------------------------
 
@@ -96,6 +101,16 @@ CREATE TABLE `vacuna` (
   `fechaCaduca` date NOT NULL,
   `colocada` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vacuna`
+--
+
+INSERT INTO `vacuna` (`nroSerieDosis`, `marca`, `medida`, `fechaCaduca`, `colocada`) VALUES
+(1236, 'Moderna', 0.3, '2024-10-17', 0),
+(1478, 'AstraZeneca', 0.3, '2023-10-27', 0),
+(2058, 'Pfizer', 0.3, '2023-12-14', 0),
+(5891, 'Sinopharm', 0.3, '2024-10-26', 0);
 
 --
 -- Índices para tablas volcadas
@@ -143,7 +158,7 @@ ALTER TABLE `citavacunacion`
 -- AUTO_INCREMENT de la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
-  MODIFY `nroSerieDosis` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `nroSerieDosis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5892;
 
 --
 -- Restricciones para tablas volcadas
